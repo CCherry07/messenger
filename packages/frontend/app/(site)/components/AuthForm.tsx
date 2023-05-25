@@ -74,7 +74,13 @@ const AuthForm = () => {
       >
         <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
           {Variant === VariantType.Register ? (
-            <Input label="Name" id="name" name="name" register={register} />
+            <Input
+              label="Name"
+              id="name"
+              name="name"
+              register={register}
+              disabled={isLoading}
+            />
           ) : null}
           <Input
             label="Email address"
@@ -83,6 +89,7 @@ const AuthForm = () => {
             name="email"
             register={register}
             errors={errors}
+            disabled={isLoading}
           />
           <Input
             label="Password"
@@ -90,6 +97,7 @@ const AuthForm = () => {
             id="password"
             name="password"
             register={register}
+            disabled={isLoading}
           />
 
           <div>
