@@ -1,7 +1,10 @@
 import Image from "next/image";
 import AuthForm from "./components/AuthForm";
+import { useTranslation } from "next-i18next";
 
 const Auth = () => {
+  const { t } = useTranslation("common");
+
   return (
     <div
       className="
@@ -33,7 +36,7 @@ const Auth = () => {
             text-gray-900
           "
         >
-          Sign in to your account
+          {t("Sign in to your account")}
         </h2>
       </div>
       <AuthForm />

@@ -121,6 +121,7 @@ importers:
       dotenv: ^16.0.3
       eslint: 8.41.0
       eslint-config-next: 13.4.3
+      i18next: ^22.5.0
       next: 13.4.3
       next-i18next: ^13.2.2
       nprogress: ^0.2.0
@@ -128,6 +129,7 @@ importers:
       react: 18.2.0
       react-dom: 18.2.0
       react-hook-form: ^7.43.9
+      react-i18next: ^12.3.1
       react-icons: ^4.8.0
       react-query: ^3.39.3
       tailwindcss: 3.3.2
@@ -145,13 +147,15 @@ importers:
       dotenv: 16.0.3
       eslint: 8.41.0
       eslint-config-next: 13.4.3_opaykosi7ysrbskpnffskmbrki
+      i18next: 22.5.0
       next: 13.4.3_biqbaboplfbrettd7655fr4n2y
-      next-i18next: 13.2.2_next@13.4.3+react@18.2.0
+      next-i18next: 13.2.2_eis4igejy7yu2ynkyk3hszyoqu
       nprogress: 0.2.0
       postcss: 8.4.23
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       react-hook-form: 7.43.9_react@18.2.0
+      react-i18next: 12.3.1_dje3x67x7taogjmwoynufb4r2i
       react-icons: 4.8.0_react@18.2.0
       react-query: 3.39.3_biqbaboplfbrettd7655fr4n2y
       tailwindcss: 3.3.2
@@ -4770,6 +4774,12 @@ packages:
     resolution: {integrity: sha512-H2iMtd0I4Mt5eYiapRdIDjp+XzelXQ0tFE4JS7YFwFevXXMmOp9myNrUvCg0D6ws8iqkRPBfKHgbwig1SmlLfg==}
     dev: true
 
+  /html-parse-stringify/3.0.1:
+    resolution: {integrity: sha512-KknJ50kTInJ7qIScF3jeaFRpMpE8/lfiTdzf/twXyPBLAGrLRTmkz3AdTnKeh40X8k9L2fdYwEp/42WGXIRGcg==}
+    dependencies:
+      void-elements: 3.1.0
+    dev: false
+
   /http-errors/2.0.0:
     resolution: {integrity: sha512-FtwrG/euBzaEjYeRqOgly7G0qviiXoJWnvEH2Z1plBdXgbyjv34pHTSb9zoeHMyDy33+DWy5Wt9Wo+TURtOYSQ==}
     engines: {node: '>= 0.8'}
@@ -4802,6 +4812,12 @@ packages:
 
   /i18next-fs-backend/2.1.2:
     resolution: {integrity: sha512-y9vl8HC8b1ayqZELzKvaKgnphrxgbaGGSNQjPU0JoTVP1M3NI6C69SwiAAXi6xuF1FSySJG52EdQZdMUETlwRA==}
+    dev: false
+
+  /i18next/22.5.0:
+    resolution: {integrity: sha512-sqWuJFj+wJAKQP2qBQ+b7STzxZNUmnSxrehBCCj9vDOW9RDYPfqCaK1Hbh2frNYQuPziz6O2CGoJPwtzY3vAYA==}
+    dependencies:
+      '@babel/runtime': 7.21.5
     dev: false
 
   /iconv-lite/0.4.24:
@@ -6318,7 +6334,7 @@ packages:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
     dev: true
 
-  /next-i18next/13.2.2_next@13.4.3+react@18.2.0:
+  /next-i18next/13.2.2_eis4igejy7yu2ynkyk3hszyoqu:
     resolution: {integrity: sha512-t0WU6K+HJoq2nVQ0n6OiiEZja9GyMqtDSU74FmOafgk4ljns+iZ18bsNJiI8rOUXfFfkW96ea1N7D5kbMyT+PA==}
     engines: {node: '>=14'}
     peerDependencies:
@@ -6331,9 +6347,11 @@ packages:
       '@types/hoist-non-react-statics': 3.3.1
       core-js: 3.30.2
       hoist-non-react-statics: 3.3.2
+      i18next: 22.5.0
       i18next-fs-backend: 2.1.2
       next: 13.4.3_biqbaboplfbrettd7655fr4n2y
       react: 18.2.0
+      react-i18next: 12.3.1_dje3x67x7taogjmwoynufb4r2i
     dev: false
 
   /next/13.4.3_biqbaboplfbrettd7655fr4n2y:
@@ -7039,6 +7057,26 @@ packages:
       react: ^16.8.0 || ^17 || ^18
     dependencies:
       react: 18.2.0
+    dev: false
+
+  /react-i18next/12.3.1_dje3x67x7taogjmwoynufb4r2i:
+    resolution: {integrity: sha512-5v8E2XjZDFzK7K87eSwC7AJcAkcLt5xYZ4+yTPDAW1i7C93oOY1dnr4BaQM7un4Hm+GmghuiPvevWwlca5PwDA==}
+    peerDependencies:
+      i18next: '>= 19.0.0'
+      react: '>= 16.8.0'
+      react-dom: '*'
+      react-native: '*'
+    peerDependenciesMeta:
+      react-dom:
+        optional: true
+      react-native:
+        optional: true
+    dependencies:
+      '@babel/runtime': 7.21.5
+      html-parse-stringify: 3.0.1
+      i18next: 22.5.0
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
     dev: false
 
   /react-icons/4.8.0_react@18.2.0:
@@ -8435,6 +8473,11 @@ packages:
   /vary/1.1.2:
     resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}
     engines: {node: '>= 0.8'}
+
+  /void-elements/3.1.0:
+    resolution: {integrity: sha512-Dhxzh5HZuiHQhbvTW9AMetFfBHDMYpo23Uo9btPXgdYP+3T5S+p+jgNy7spra+veYhBP2dCSgxR/i2Y02h5/6w==}
+    engines: {node: '>=0.10.0'}
+    dev: false
 
   /walker/1.0.8:
     resolution: {integrity: sha512-ts/8E8l5b7kY0vlWLewOkDXMmPdLcVV4GmOQLyxuSswIJsweeFZtAsMF7k1Nszz+TYBQrlYRmzOnr398y1JemQ==}
