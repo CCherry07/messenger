@@ -117,6 +117,8 @@ importers:
       autoprefixer: 10.4.14
       axios: ^1.4.0
       clsx: ^1.2.1
+      cross-env: ^7.0.3
+      dotenv: ^16.0.3
       eslint: 8.41.0
       eslint-config-next: 13.4.3
       next: 13.4.3
@@ -139,6 +141,8 @@ importers:
       autoprefixer: 10.4.14_postcss@8.4.23
       axios: 1.4.0
       clsx: 1.2.1
+      cross-env: 7.0.3
+      dotenv: 16.0.3
       eslint: 8.41.0
       eslint-config-next: 13.4.3_opaykosi7ysrbskpnffskmbrki
       next: 13.4.3_biqbaboplfbrettd7655fr4n2y
