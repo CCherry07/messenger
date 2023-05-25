@@ -17,6 +17,7 @@ const AuthForm = () => {
   const [Variant, setVariant] = useState<VariantType>(VariantType.Login);
   const [isLoading, setIsLoading] = useState(false);
   const taggleVariant = useCallback(() => {
+    setIsLoading(false);
     setVariant((variant) =>
       variant === VariantType.Login ? VariantType.Register : VariantType.Login
     );
@@ -142,14 +143,14 @@ const AuthForm = () => {
         </div>
         <div
           className="
-        flex
-        gap-2
-        justify-center
-        text-sm
-        mt-6
-        px-2
-        text-gray-500
-        "
+            flex
+            gap-2
+            justify-center
+            text-sm
+            mt-6
+            px-2
+            text-gray-500
+            "
         >
           <div>
             {Variant === VariantType.Login
