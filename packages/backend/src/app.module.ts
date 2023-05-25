@@ -8,10 +8,12 @@ import { resolve } from 'path';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: __DEV__ ? resolve(process.cwd(), '../../.dev.env') : resolve(process.cwd(), '../../.prod.env')
+      envFilePath: __DEV__
+        ? resolve(process.cwd(), '../../.dev.env')
+        : resolve(process.cwd(), '../../.prod.env'),
     }),
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}
