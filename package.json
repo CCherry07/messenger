@@ -35,7 +35,8 @@
     "prepare": "husky install",
     "lint-staged": "lint-staged --allow-empty",
     "lint-staged:js": "eslint --ext .js,.jsx,.ts,.tsx ",
-    "prettier": "prettier -c --write **/*"
+    "prettier": "prettier -c --write **/*",
+    "release": "standard-version"
   },
   "repository": {
     "type": "git",
