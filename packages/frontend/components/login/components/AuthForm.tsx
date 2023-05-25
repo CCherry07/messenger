@@ -3,11 +3,9 @@
 import { useCallback, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import type { FieldValues } from "react-hook-form";
-import Input from "@/app/components/inputs/input";
-import Button from "@/app/components/Button";
-
+import Input from "@/components/inputs/input";
+import Button from "@/components/Button";
 import AuthSocialButton from "./AuthSocialButton";
-
 import { BsGithub, BsGoogle } from "react-icons/bs";
 
 enum VariantType {
