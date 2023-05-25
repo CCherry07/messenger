@@ -5,14 +5,12 @@
   "main": "index.js",
   "dependencies": {},
   "devDependencies": {},
-  "workspaces": {
-    "packages": [
-      "packages/*"
-    ]
-  },
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "dev:f": "pnpm -r --filter @messenger/frontend dev",
-    "dev:b": "pnpm -r --filter @messenger/backend dev",
+    "dev:b": "pnpm -r --filter @messenger/backend start:dev",
     "ta:dev": "pnpm -r --filter @messenger/frontend tauri:dev"
   },
   "repository": {
