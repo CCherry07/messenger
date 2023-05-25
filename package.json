@@ -3,15 +3,39 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "dependencies": {},
-  "devDependencies": {},
+  "devDependencies": {
+    "commitizen": "^4.3.0",
+    "commitlint": "^17.6.3",
+    "cz-conventional-changelog": "^3.3.0",
+    "husky": "^8.0.3"
+  },
   "workspaces": [
     "packages/*"
   ],
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx}": "pnpm run lint-staged:js",
+    "**/*.{js,jsx,tsx,ts,less,md,json}": [
+      "prettier --write"
+    ]
+  },
   "scripts": {
     "dev:f": "pnpm -r --filter @messenger/frontend dev",
     "dev:b": "pnpm -r --filter @messenger/backend start:dev",
-    "ta:dev": "pnpm -r --filter @messenger/frontend tauri:dev"
+    "ta:dev": "pnpm -r --filter @messenger/frontend tauri:dev",
+    "prepare": "husky install",
+    "lint-staged": "lint-staged --allow-empty",
+    "lint-staged:js": "eslint --ext .js,.jsx,.ts,.tsx ",
+    "prettier": "prettier -c --write **/*"
   },
   "repository": {
     "type": "git",
@@ -22,5 +46,9 @@
   "bugs": {
     "url": "https://github.com/CCherry07/messenger/issues"
   },
-  "homepage": "https://github.com/CCherry07/messenger#readme"
+  "homepage": "https://github.com/CCherry07/messenger#readme",
+  "dependencies": {
+    "@commitlint/config-conventional": "^17.6.3",
+    "lint-staged": "^13.2.2"
+  }
 }
