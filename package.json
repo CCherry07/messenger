@@ -3,10 +3,26 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "dependencies": {},
+  "devDependencies": {},
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
   },
-  "keywords": [],
+  "scripts": {
+    "dev:f": "pnpm -r --filter @messenger/frontend dev",
+    "dev:b": "pnpm -r --filter @messenger/backend dev",
+    "ta:dev": "pnpm -r --filter @messenger/frontend tauri:dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CCherry07/messenger.git"
+  },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CCherry07/messenger/issues"
+  },
+  "homepage": "https://github.com/CCherry07/messenger#readme"
 }

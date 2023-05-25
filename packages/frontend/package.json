@@ -1,12 +1,13 @@
 {
-  "name": "messenger",
+  "name": "@messenger/frontend",
   "version": "0.1.0",
   "private": "false",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "tauri:dev": "tauri dev"
   },
   "dependencies": {
     "@types/node": "20.2.3",
