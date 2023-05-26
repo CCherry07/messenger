@@ -1,7 +1,15 @@
-import { Column, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Conversation } from 'src/conversation/entities/conversation.entity';
 import { User } from 'src/user/entities/user.entity';
 
+@Entity()
 export class Message {
   @PrimaryGeneratedColumn()
   id: number;
@@ -13,7 +21,7 @@ export class Message {
   @Column()
   image: string;
 
-  @Column({ type: 'date', default: new Date() })
+  @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;
 
   @Column({ type: 'simple-array' })

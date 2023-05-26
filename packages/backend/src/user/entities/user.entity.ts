@@ -1,7 +1,16 @@
 import { Conversation } from 'src/conversation/entities/conversation.entity';
 import { Message } from 'src/message/entities/message.entity';
-import { Column, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
+@Entity()
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
@@ -24,10 +33,10 @@ export class User {
   @Column()
   hashPassword: string;
 
-  @Column({ type: 'date', default: new Date() })
+  @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;
 
-  @Column({ type: 'date' })
+  @UpdateDateColumn({ type: 'timestamp' })
   updatedAt: Date;
 
   @Column({ type: 'simple-array' })
@@ -49,6 +58,7 @@ export class User {
   messages: Message[];
 }
 
+@Entity()
 export class Account {
   @PrimaryGeneratedColumn()
   id: number;
@@ -80,10 +90,10 @@ export class Account {
   @Column()
   scope: string;
 
-  @Column()
+  @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;
 
-  @Column()
+  @UpdateDateColumn({ type: 'timestamp' })
   updatedAt: Date;
 
   @Column()

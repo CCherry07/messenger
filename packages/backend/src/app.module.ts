@@ -4,9 +4,9 @@ import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { __DEV__ } from 'content';
 import { resolve } from 'path';
-import { UserModule } from './user/user.module';
 import { databaseConfig } from './db/database.config';
 import { DatabaseModule } from './db/database.module';
+import { UserModule } from './user/user.module';
 import { MessageModule } from './message/message.module';
 import { ConversationModule } from './conversation/conversation.module';
 
@@ -17,7 +17,7 @@ import { ConversationModule } from './conversation/conversation.module';
       envFilePath: __DEV__
         ? resolve(process.cwd(), '../../.dev.env')
         : resolve(process.cwd(), '../../.prod.env'),
-      load: [databaseConfig], // 加载配置
+      load: [databaseConfig],
     }),
     DatabaseModule,
     UserModule,
