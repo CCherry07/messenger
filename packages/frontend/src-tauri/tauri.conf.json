@@ -14,6 +14,9 @@
     "allowlist": {
       "all": false
     },
+    "pattern": {
+      "use": "brownfield"
+    },
     "bundle": {
       "active": true,
       "category": "DeveloperTool",

@@ -4,16 +4,24 @@ import type { GetStaticProps } from "next";
 
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { invoke } from "@tauri-apps/api/tauri";
+import { useEffect } from "react";
 type Props = {
   // Add custom props here
 };
 export default function Home() {
-  const { t } = useTranslation("common");
-
+  const { t, i18n } = useTranslation("common");
+  useEffect(() => {
+    invoke<string>("set_user_language", { language: i18n.language })
+      .then((res) => {
+        console.log("进程可通信", res);
+      })
+      .catch(console.error);
+  }, []);
   return (
     <div className="dark text-black dark:text-white">
       <Head>
-        <title> {t("messenger")} </title>
+        <title> messenger </title>
         <meta name="description" content={t("messenger") as string} />
         <link rel="icon" href="../public/images/logo.png" />
       </Head>
@@ -26,6 +34,6 @@ export default function Home() {
 
 export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => ({
   props: {
-    ...(await serverSideTranslations(locale ?? "en", ["common"])),
+    ...(await serverSideTranslations(locale ?? "zh", ["common"])),
   },
 });
