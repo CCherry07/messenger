@@ -27,7 +27,7 @@ export class User {
   @Column({ nullable: true })
   image: string;
 
-  @Column({ type: 'datetime' })
+  @Column()
   emailVerified: boolean;
 
   @Column()
@@ -36,16 +36,16 @@ export class User {
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;
 
-  @UpdateDateColumn({ type: 'timestamp' })
+  @UpdateDateColumn({ type: 'timestamp', nullable: true })
   updatedAt: Date;
 
-  @Column({ type: 'simple-array' })
+  @Column({ type: 'simple-array', nullable: true })
   coversationsIds: string[];
 
   @OneToMany(() => Conversation, (conversation) => conversation.users)
   conversations: Conversation[];
 
-  @Column({ type: 'simple-array' })
+  @Column({ type: 'simple-array', nullable: true })
   seenMessageIds: string[];
 
   @OneToMany(() => Message, (message) => message.user)
@@ -54,7 +54,7 @@ export class User {
   @OneToMany(() => Account, (account) => account.user)
   accounts: Account[];
 
-  @Column({ type: 'simple-array' })
+  @Column({ type: 'simple-array', nullable: true })
   messages: Message[];
 }
 
