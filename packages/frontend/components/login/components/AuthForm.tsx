@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useState } from "react";
+import Axios from "axios";
 import { SubmitHandler, useForm } from "react-hook-form";
 import type { FieldValues } from "react-hook-form";
 import Input from "@/components/inputs/input";
@@ -40,6 +41,9 @@ const AuthForm = () => {
         // TODO: login
       } else {
         // TODO: register
+        console.log(data);
+
+        Axios.post("/api/auth/register", data);
       }
     },
     []

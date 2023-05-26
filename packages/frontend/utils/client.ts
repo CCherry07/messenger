@@ -1,9 +1,9 @@
 import { QueryCache } from "react-query";
 // 获取环境变量
-const apiURL = process.env.BASE_URL;
+const apiURL = process.env.NEXT_PUBLIC_API_URL;
 
 interface ClientParameter {
-  data: Pick<RequestInit, "body">;
+  data: Record<string, unknown>;
   token: string;
   headers: HeadersInit;
   customHeaders: HeadersInit;
@@ -11,7 +11,12 @@ interface ClientParameter {
 
 async function client(
   endpoint: string,
-  { data, token, headers: customHeaders, ...customConfig }: ClientParameter
+  {
+    data,
+    token,
+    headers: customHeaders,
+    ...customConfig
+  }: Partial<ClientParameter> = {}
 ) {
   const config = {
     method: data ? "POST" : "GET",
