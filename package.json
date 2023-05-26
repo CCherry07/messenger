@@ -50,6 +50,7 @@
   "homepage": "https://github.com/CCherry07/messenger#readme",
   "dependencies": {
     "@commitlint/config-conventional": "^17.6.3",
+    "@nestjs/mapped-types": "*",
     "lint-staged": "^13.2.2"
   }
 }
