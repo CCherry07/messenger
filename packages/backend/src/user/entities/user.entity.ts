@@ -12,13 +12,16 @@ import {
 
 @Entity()
 export class User {
+  constructor(partial?: Partial<User>) {
+    Object.assign(this, partial);
+  }
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column({ unique: true })
   name: string;
 
-  @Column()
+  @Column({ nullable: true })
   password: string;
 
   @Column({ unique: true })
@@ -27,7 +30,7 @@ export class User {
   @Column({ nullable: true })
   image: string;
 
-  @Column()
+  @Column({ default: false })
   emailVerified: boolean;
 
   @Column()
