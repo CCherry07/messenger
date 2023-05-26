@@ -108,3 +108,10 @@ export class Account {
   @ManyToOne(() => User, (user) => user.accounts)
   user: User;
 }
+
+export interface TokenEntity {
+  token: string;
+  code: number;
+  message: string;
+  data: Partial<User>;
+}

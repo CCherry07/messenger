@@ -5,12 +5,16 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import FormatResponse from './common/FormatResponse';
 import FormatError from './common/FormatError';
+import { JwtAuthGuard } from './auth/jwt-auth.guard';
+
 console.log(`Running in ${__DEV__ ? 'development' : 'production'} mode`);
 console.log(`Listening on port ${process.env.BACKEND_PORT || 3000}`);
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   app.useGlobalInterceptors(new FormatResponse());
+  app.useGlobalGuards(new JwtAuthGuard());
   app.useGlobalFilters(new FormatError());
+  app.enableCors();
   // docs
   const options = new DocumentBuilder()
     .setTitle('标题')

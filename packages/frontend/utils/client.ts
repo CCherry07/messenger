@@ -38,6 +38,9 @@ async function client(
     }
     const data = await response.json();
     if (response.ok) {
+      if (data.code !== 0) {
+        return Promise.reject(data);
+      }
       return data;
     } else {
       return Promise.reject(data);

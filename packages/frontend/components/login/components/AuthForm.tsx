@@ -2,13 +2,15 @@
 
 import { useCallback, useState } from "react";
 import Axios from "axios";
+import { signIn } from "next-auth/react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import type { FieldValues } from "react-hook-form";
 import Input from "@/components/inputs/input";
 import Button from "@/components/Button";
 import AuthSocialButton from "./AuthSocialButton";
 import { BsGithub, BsGoogle } from "react-icons/bs";
-
+import { toast } from "react-hot-toast";
+import { client } from "@/utils/client";
 enum VariantType {
   Login = "login",
   Register = "register",
@@ -17,16 +19,11 @@ enum VariantType {
 const AuthForm = () => {
   const [Variant, setVariant] = useState<VariantType>(VariantType.Login);
   const [isLoading, setIsLoading] = useState(false);
-  const taggleVariant = useCallback(() => {
-    setIsLoading(false);
-    setVariant((variant) =>
-      variant === VariantType.Login ? VariantType.Register : VariantType.Login
-    );
-  }, []);
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<FieldValues>({
     defaultValues: {
       name: "",
@@ -38,23 +35,71 @@ const AuthForm = () => {
     (data: FieldValues) => {
       setIsLoading(true);
       if (Variant === VariantType.Login) {
-        // TODO: login
+        // signIn('Credentials', {
+        //   ...data,
+        //   redirect: false,
+        // }).then((res) => {
+        //   if (!res?.ok && res?.error) {
+        //     toast.error("Login failed");
+        //   } else {
+        //     toast.success("Login success");
+        //   }
+        // }).finally(() => setIsLoading(false));
+        client("auth/login", {
+          data,
+        })
+          .then(
+            (res) => {
+              toast.success(res.data.message || "Login success");
+            },
+            (err) => {
+              toast.error(err.message);
+            }
+          )
+          .finally(() => {
+            setIsLoading(false);
+          });
       } else {
-        // TODO: register
-        console.log(data);
-
-        Axios.post("/api/auth/register", data);
+        Axios.post("/api/auth/register", data)
+          .then(
+            (res) => {
+              toast.success(res.data.message || "Register success");
+            },
+            () => {
+              toast.error(`${data.name} register failed`);
+            }
+          )
+          .finally(() => {
+            setIsLoading(false);
+          });
       }
     },
-    []
+    [Variant]
   );
   type ActionType = "github" | "google";
   const socialAction = useCallback((actionType: ActionType) => {
     setIsLoading(true);
-    if (Variant === VariantType.Login) {
-      // window.location.href = '/api/auth/google'
-    }
+    signIn(actionType, {
+      callbackUrl: `${window.location.origin}/`,
+      redirect: false,
+    })
+      .then((res) => {
+        if (!res?.ok && res?.error) {
+          toast.error("Login failed");
+        } else {
+          toast.success("Login success");
+        }
+      })
+      .finally(() => setIsLoading(false));
   }, []);
+
+  const taggleVariant = useCallback(() => {
+    setIsLoading(false);
+    reset();
+    setVariant((variant) =>
+      variant === VariantType.Login ? VariantType.Register : VariantType.Login
+    );
+  }, [reset]);
 
   return (
     <div

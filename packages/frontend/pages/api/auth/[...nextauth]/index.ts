@@ -3,7 +3,7 @@ import NextAuth, { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GithubProviders from "next-auth/providers/github";
 import GoogleProviders from "next-auth/providers/google";
-
+import { TypeORMLegacyAdapter } from "@next-auth/typeorm-legacy-adapter";
 import { client } from "@/utils/client";
 
 export const authAction: AuthOptions = {
@@ -23,11 +23,12 @@ export const authAction: AuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        if (credentials?.email || credentials?.password) {
+        console.log("credentials", credentials);
+        if (!credentials?.email || !credentials?.password) {
           throw new Error("Missing credentials");
         }
         // login
-        const user = await client("auth/login", {
+        const user = await client("user/login", {
           data: credentials,
         });
         if (!user || !user?.hashPassword) {
@@ -41,7 +42,6 @@ export const authAction: AuthOptions = {
         if (!isValid) {
           throw new Error("Invalid credentials");
         }
-
         return user;
       },
     }),
