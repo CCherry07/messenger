@@ -13,9 +13,11 @@ import { User } from 'src/user/entities/user.entity';
 export class Message {
   @PrimaryGeneratedColumn()
   id: number;
+
   @ManyToOne(() => User, (user) => user.messages)
   user: User;
-  @Column()
+
+  @Column('text')
   body: string;
 
   @Column()
