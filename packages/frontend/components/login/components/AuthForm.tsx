@@ -1,8 +1,8 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Axios from "axios";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import type { FieldValues } from "react-hook-form";
 import Input from "@/components/inputs/input";
@@ -11,14 +11,24 @@ import AuthSocialButton from "./AuthSocialButton";
 import { BsGithub, BsGoogle } from "react-icons/bs";
 import { toast } from "react-hot-toast";
 import { client } from "@/utils/client";
+import { useRouter } from "next/navigation";
 enum VariantType {
   Login = "login",
   Register = "register",
 }
 
 const AuthForm = () => {
+  const session = useSession();
+  const router = useRouter();
   const [Variant, setVariant] = useState<VariantType>(VariantType.Login);
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (session?.status === "authenticated") {
+      router.push("/users");
+    }
+  }, [router, session?.status]);
+
   const {
     register,
     handleSubmit,
@@ -35,21 +45,14 @@ const AuthForm = () => {
     (data: FieldValues) => {
       setIsLoading(true);
       if (Variant === VariantType.Login) {
-        // signIn('Credentials', {
-        //   ...data,
-        //   redirect: false,
-        // }).then((res) => {
-        //   if (!res?.ok && res?.error) {
-        //     toast.error("Login failed");
-        //   } else {
-        //     toast.success("Login success");
-        //   }
-        // }).finally(() => setIsLoading(false));
         client("auth/login", {
           data,
         })
           .then(
             (res) => {
+              session.data = res.data;
+              session.status = "authenticated";
+              session.update();
               toast.success(res.data.message || "Login success");
             },
             (err) => {

@@ -4,20 +4,18 @@ import type { GetStaticProps } from "next";
 
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { invoke } from "@tauri-apps/api/tauri";
 import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 type Props = {
   // Add custom props here
 };
 export default function Home() {
+  const router = useRouter();
   const { t, i18n } = useTranslation("common");
-  useEffect(() => {
-    invoke<string>("set_user_language", { language: i18n.language })
-      .then((res) => {
-        console.log("进程可通信", res);
-      })
-      .catch(console.error);
-  }, []);
+  // useEffect(() => {
+  //   i18n.changeLanguage(window.navigator.language);
+  //   router.replace(`/${i18n.language}`);
+  // }, [i18n, router]);
   return (
     <div className="dark text-black dark:text-white">
       <Head>
@@ -34,6 +32,6 @@ export default function Home() {
 
 export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => ({
   props: {
-    ...(await serverSideTranslations(locale ?? "zh", ["common"])),
+    ...(await serverSideTranslations(locale ?? "en", ["common"])),
   },
 });
