@@ -10,16 +10,21 @@ export class UserService {
   constructor(
     @InjectRepository(User) private readonly user: Repository<User>,
   ) {}
-  create(createUserDto: CreateUserDto) {
-    const user = new User();
-    user.email = createUserDto.email;
-    user.name = createUserDto.name;
-    user.password = createUserDto?.password || '123456';
-    user.hashPassword = createUserDto.hashPassword;
-    user.emailVerified = false;
-    console.log(createUserDto);
+  async create(createUserDto: CreateUserDto) {
+    const hadUser = await this.user.findOne({
+      where: { email: createUserDto.email },
+    });
 
-    return this.user.save(user);
+    if (hadUser) {
+      return {
+        message: `User with email ${createUserDto.email} already exists`,
+      };
+    }
+    const user = new User(createUserDto);
+    await this.user.save(user);
+    return {
+      message: 'User created successfully',
+    };
   }
 
   findAll() {
