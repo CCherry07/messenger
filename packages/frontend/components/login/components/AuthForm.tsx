@@ -45,22 +45,37 @@ const AuthForm = () => {
     (data: FieldValues) => {
       setIsLoading(true);
       if (Variant === VariantType.Login) {
-        client("auth/login", {
-          data,
+        signIn("credentials", {
+          email: data.email,
+          password: data.password,
+          callbackUrl: `${window.location.origin}/`,
+          redirect: false,
         })
-          .then(
-            async (res) => {
-              session.data = res.data;
-              session.status = "authenticated";
-              toast.success(res.data.message || "Login success");
-            },
-            (err) => {
-              toast.error(err.message);
+          .then((res) => {
+            if (!res?.ok && res?.error) {
+              toast.error("Login failed");
+            } else {
+              toast.success("Login success");
             }
-          )
-          .finally(() => {
-            setIsLoading(false);
-          });
+          })
+          .finally(() => setIsLoading(false));
+
+        // client("auth/login", {
+        //   data,
+        // })
+        //   .then(
+        //     async (res) => {
+        //       session.data = res.data;
+        //       session.status = "authenticated";
+        //       toast.success(res.data.message || "Login success");
+        //     },
+        //     (err) => {
+        //       toast.error(err.message);
+        //     }
+        //   )
+        //   .finally(() => {
+        //     setIsLoading(false);
+        //   });
       } else {
         Axios.post("/api/auth/register", data)
           .then(
