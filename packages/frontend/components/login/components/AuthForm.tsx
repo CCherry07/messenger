@@ -10,7 +10,6 @@ import Button from "@/components/Button";
 import AuthSocialButton from "./AuthSocialButton";
 import { BsGithub, BsGoogle } from "react-icons/bs";
 import { toast } from "react-hot-toast";
-import { client } from "@/utils/client";
 import { useRouter } from "next/navigation";
 enum VariantType {
   Login = "login",

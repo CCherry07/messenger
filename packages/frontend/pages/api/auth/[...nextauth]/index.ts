@@ -31,7 +31,19 @@ export const authOptions: AuthOptions = {
         if (!user || !user?.token) {
           throw new Error("Invalid credentials");
         }
-        return user;
+        const adapterUser = {
+          name: null,
+          email: null,
+          image: null,
+          accessToken: null,
+        } as any;
+        if (user.code === 0) {
+          adapterUser.name = user.data.name;
+          adapterUser.email = user.data.email;
+          adapterUser.image = user.data.image;
+          adapterUser.accessToken = user.token;
+        }
+        return adapterUser;
       },
     }),
   ],

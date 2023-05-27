@@ -27,13 +27,14 @@ export class AuthService {
   }
 
   async login(user: User): Promise<TokenEntity> {
-    const { id, email, name } = user;
+    const { id, email, name, image } = user;
     return {
       code: 0,
       message: 'Login successfully',
       data: {
         email,
         name,
+        image,
       },
       token: this.jwtService.sign(
         { name, email, sub: id },
