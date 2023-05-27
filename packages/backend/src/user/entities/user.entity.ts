@@ -110,8 +110,7 @@ export class Account {
 }
 
 export interface TokenEntity {
-  token: string;
   code: number;
   message: string;
-  data: Partial<User>;
+  data: Partial<User & { token: string }>;
 }

@@ -7,8 +7,8 @@ import { CreateUserDto } from './dto/create-user.dto';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Post('me')
-  async findOne(@Body() body: CreateUserDto) {
-    return this.userService.findOne(body);
+  @Post('users')
+  getUsers(@Body() createUserDto: Partial<CreateUserDto>) {
+    return this.userService.findAllNotMe({ email: createUserDto.email });
   }
 }

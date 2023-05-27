@@ -35,13 +35,13 @@ export class AuthService {
         email,
         name,
         image,
+        token: this.jwtService.sign(
+          { name, email, sub: id },
+          {
+            privateKey: jwtContants.secret,
+          },
+        ),
       },
-      token: this.jwtService.sign(
-        { name, email, sub: id },
-        {
-          privateKey: jwtContants.secret,
-        },
-      ),
     };
   }
 

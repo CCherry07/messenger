@@ -3,7 +3,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 // import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, Not } from 'typeorm';
 @Injectable()
 export class UserService {
   constructor(@InjectRepository(User) private readonly user: Repository<User>) {
@@ -31,5 +31,17 @@ export class UserService {
     return await this.user.findOne({
       where: { email, id },
     });
+  }
+
+  async findAllNotMe(createUserDto: { email: string }) {
+    const data = await this.user.find({
+      where: { email: Not(createUserDto.email) },
+      order: {
+        createdAt: 'DESC',
+      },
+    });
+    return {
+      data,
+    };
   }
 }
