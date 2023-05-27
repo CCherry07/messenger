@@ -1,7 +1,7 @@
 import { QueryCache } from "react-query";
 // 获取环境变量
-const apiURL = process.env.NEXT_PUBLIC_API_URL;
 
+const apiURL = process.env.NEXT_PUBLIC_API_URL;
 interface ClientParameter {
   data: Record<string, unknown>;
   token: string;
@@ -41,7 +41,10 @@ async function client(
       if (data.code !== 0) {
         return Promise.reject(data);
       }
-      return data;
+      if (data.code === 0) {
+        return data.data;
+      }
+      return Promise.reject(data);
     } else {
       return Promise.reject(data);
     }

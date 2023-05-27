@@ -27,6 +27,9 @@ const nextConfig = {
   env: {
     ...envConfig.parsed,
   },
+  experimental: {
+    swcPlugin: ["next-superjson-plugin", {}],
+  },
 };
 
 module.exports = nextConfig;

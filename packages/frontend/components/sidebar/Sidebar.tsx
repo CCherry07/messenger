@@ -8,9 +8,9 @@ interface SidebarProps {
 function Sidebar({ children, user }: SidebarProps) {
   return (
     <div className="h-full">
-      <DesktopSidebar />
+      <DesktopSidebar user={user!} />
       <MobileFooter />
-      <main className="h-full">{children}</main>
+      <main className="sm:pl-20 h-full">{children}</main>
     </div>
   );
 }

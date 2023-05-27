@@ -4,6 +4,16 @@ import GithubProviders from "next-auth/providers/github";
 import GoogleProviders from "next-auth/providers/google";
 import { client } from "@/utils/client";
 
+declare module "next-auth" {
+  interface User {
+    id: string;
+    email: string;
+    name: string;
+    image: string;
+    token?: string;
+  }
+}
+
 export const authOptions: AuthOptions = {
   providers: [
     GithubProviders({
@@ -31,19 +41,7 @@ export const authOptions: AuthOptions = {
         if (!user || !user?.token) {
           throw new Error("Invalid credentials");
         }
-        const adapterUser = {
-          name: null,
-          email: null,
-          image: null,
-          accessToken: null,
-        } as any;
-        if (user.code === 0) {
-          adapterUser.name = user.data.name;
-          adapterUser.email = user.data.email;
-          adapterUser.image = user.data.image;
-          adapterUser.accessToken = user.token;
-        }
-        return adapterUser;
+        return user;
       },
     }),
   ],
@@ -52,6 +50,14 @@ export const authOptions: AuthOptions = {
     strategy: "jwt",
   },
   secret: process.env.NEXTAUTH_SECRET,
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.accessToken = user?.token;
+      }
+      return token;
+    },
+  },
 };
 const handler = NextAuth(authOptions);
 

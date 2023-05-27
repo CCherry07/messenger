@@ -151,6 +151,7 @@ importers:
       next: 13.4.3
       next-auth: ^4.22.1
       next-i18next: ^13.2.2
+      next-superjson-plugin: ^0.5.8
       nprogress: ^0.2.0
       postcss: 8.4.23
       react: 18.2.0
@@ -182,6 +183,7 @@ importers:
       next: 13.4.3_biqbaboplfbrettd7655fr4n2y
       next-auth: 4.22.1_o6dt4yn4syzkhlixdxt4y57rzi
       next-i18next: 13.2.2_eis4igejy7yu2ynkyk3hszyoqu
+      next-superjson-plugin: 0.5.8_next@13.4.3
       nprogress: 0.2.0
       postcss: 8.4.23
       react: 18.2.0
@@ -6405,6 +6407,16 @@ packages:
       next: 13.4.3_biqbaboplfbrettd7655fr4n2y
       react: 18.2.0
       react-i18next: 12.3.1_dje3x67x7taogjmwoynufb4r2i
+    dev: false
+
+  /next-superjson-plugin/0.5.8_next@13.4.3:
+    resolution: {integrity: sha512-a6znMUzHWRAaxmQNHkgANJORdI0gjSC0JvsxRRKba6vb4BJRs/i2KpwEg/s91JYDhHsnZS+tkeb3MDCJWXJY4w==}
+    peerDependencies:
+      next: ^13
+      superjson: ^1
+    dependencies:
+      hoist-non-react-statics: 3.3.2
+      next: 13.4.3_biqbaboplfbrettd7655fr4n2y
     dev: false
 
   /next/13.4.3_biqbaboplfbrettd7655fr4n2y:

@@ -1,8 +1,12 @@
 import useRoutes from "@/hooks/useRoutes";
 import { useState } from "react";
 import DesktopItem from "./DesktopItem";
-
-const DesktopSidebar = () => {
+import { User } from "@/shared/types";
+import Avater from "../Avater";
+interface DesktopSidebarProps {
+  user: User;
+}
+const DesktopSidebar = ({ user }: DesktopSidebarProps) => {
   const { routes } = useRoutes();
   const [isOpen, setIsOpen] = useState(false);
   return (
@@ -47,6 +51,27 @@ const DesktopSidebar = () => {
             <DesktopItem {...route} key={route.name} label={route.name} />
           ))}
         </ul>
+      </nav>
+
+      <nav
+        className="
+        mt-4
+        flex
+        flex-col
+        justify-between
+        items-center
+      "
+      >
+        <div
+          onClick={() => setIsOpen(true)}
+          className="
+            cursor-pointer
+            hover:opacity-75
+            transition
+          "
+        >
+          <Avater user={user} />
+        </div>
       </nav>
     </div>
   );
