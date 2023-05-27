@@ -49,10 +49,9 @@ const AuthForm = () => {
           data,
         })
           .then(
-            (res) => {
+            async (res) => {
               session.data = res.data;
               session.status = "authenticated";
-              session.update();
               toast.success(res.data.message || "Login success");
             },
             (err) => {
@@ -77,7 +76,7 @@ const AuthForm = () => {
           });
       }
     },
-    [Variant]
+    [Variant, session]
   );
   type ActionType = "github" | "google";
   const socialAction = useCallback((actionType: ActionType) => {

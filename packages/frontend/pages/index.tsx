@@ -4,18 +4,11 @@ import type { GetStaticProps } from "next";
 
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
 type Props = {
   // Add custom props here
 };
 export default function Home() {
-  const router = useRouter();
-  const { t, i18n } = useTranslation("common");
-  // useEffect(() => {
-  //   i18n.changeLanguage(window.navigator.language);
-  //   router.replace(`/${i18n.language}`);
-  // }, [i18n, router]);
+  const { t } = useTranslation("common");
   return (
     <div className="dark text-black dark:text-white">
       <Head>
