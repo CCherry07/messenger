@@ -8,28 +8,30 @@ const DesktopSidebar = () => {
   return (
     <div
       className="
-      hidden
-      lg:fixed
-      lg:inset-y-0
-      lg:left-0
-      lg:z-40
-      lg:w-20
+      hidden 
+      sm:fixed
+      sm:inset-y-0
+      sm:left-0
+      sm:z-40
+      sm:w-20
+      sm:px-2
+      sm:overflow-y-auto
+      sm:bg-white
+      sm:border-r-[1px]
+      sm:pb-4
+      sm:flex
+      sm:flex-col
       xl:px-6
-      lg:overflow-y-auto
-      lg:bg-white
-      lg:border-r-[1px]
-      lg:pb-4
-      lg:flex
-      lg:flex-col
+      flex-col
       justify-between
     "
     >
       <nav
         className="
-      mt-4
-      flex
-      flex-col
-      justify-between
+          mt-4
+          flex
+          flex-col
+          justify-between
     "
       >
         <ul
@@ -42,14 +44,7 @@ const DesktopSidebar = () => {
           "
         >
           {routes.map((route) => (
-            <DesktopItem
-              label={route.name}
-              key={route.name}
-              href={route.href}
-              icon={route.icon}
-              active={route.active}
-              onClick={route.onClick}
-            />
+            <DesktopItem {...route} key={route.name} label={route.name} />
           ))}
         </ul>
       </nav>

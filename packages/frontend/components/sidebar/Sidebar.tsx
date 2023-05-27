@@ -1,4 +1,5 @@
 import DesktopSidebar from "./DesktopSidebar";
+import MobileFooter from "./MobileFooter";
 
 interface SidebarProps {
   children: React.ReactNode;
@@ -8,7 +9,9 @@ function Sidebar({ children }: SidebarProps) {
   return (
     <div className="h-full">
       <DesktopSidebar />
-      <main className="lg:pl-20 h-full">{children}</main>
+      <MobileFooter />
+      {/* main width */}
+      <main className="h-full">{children}</main>
     </div>
   );
 }
