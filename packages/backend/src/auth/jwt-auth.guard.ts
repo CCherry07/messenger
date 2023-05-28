@@ -6,9 +6,9 @@ import {
 import { AuthGuard } from '@nestjs/passport';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { AuthService } from './auth.service';
-import { UserService } from 'src/user/user.service';
+import { UserService } from 'src/modules/user/user.service';
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from 'src/app.module';
+import { AppModule } from 'src/modules/app.module';
 @Injectable()
 export class JwtAuthGuard extends AuthGuard('jwt') {
   constructor() {

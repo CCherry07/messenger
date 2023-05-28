@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { TokenEntity, User } from 'src/user/entities/user.entity';
+import { TokenEntity, User } from 'src/modules/user/entities/user.entity';
 import { JwtService } from '@nestjs/jwt';
-import { UserService } from 'src/user/user.service';
+import { UserService } from 'src/modules/user/user.service';
 import * as bcrypt from 'bcrypt';
 import { jwtContants } from './jwt.contants';
 

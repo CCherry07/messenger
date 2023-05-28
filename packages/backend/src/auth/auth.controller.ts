@@ -8,7 +8,7 @@ import {
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 // import { LocalAuthGuard } from './local-auth.guard';
-import { TokenEntity } from 'src/user/entities/user.entity';
+import { TokenEntity } from 'src/modules/user/entities/user.entity';
 import { AuthGuard } from '@nestjs/passport';
 
 @Controller('auth')
