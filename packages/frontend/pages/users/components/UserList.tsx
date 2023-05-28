@@ -1,8 +1,8 @@
-import { UserEntity } from "shared/types";
+import { EntitiesTypes } from "shared/types";
 import UserBox from "./UserBox";
 
 interface UserListProps {
-  items: UserEntity[];
+  items: EntitiesTypes["UserEntity"][];
 }
 const UserList = ({ items }: UserListProps) => {
   return (
