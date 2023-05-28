@@ -43,6 +43,7 @@ const Input = ({
       <div className="mt-2">
         <input
           type={type}
+          name={name}
           id={id}
           disabled={disabled}
           {...register?.(id, { required })}

@@ -2,7 +2,7 @@ import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { getServerSession } from "next-auth/next";
 import { getToken } from "next-auth/jwt";
 import { NextApiRequest, NextApiResponse } from "next";
-import { User } from "@/shared/types";
+import { User } from "shared/types";
 const getCurrentUser = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const session = (await getServerSession(req, res, authOptions)) as {
