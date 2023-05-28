@@ -1,26 +1,32 @@
-import { getSesssionConversation } from "@/apis/conversation";
+import { getSesssionConversation } from "@/apis/conversations";
 import Avatar from "@/components/Avatar";
 import { useRouter } from "next/navigation";
 import { useMutation } from "react-query";
-import { User } from "shared/types";
+import { UserEntity } from "shared/types";
+import { useUsersContext } from "../context";
 interface UserBoxProps {
-  item: User;
+  item: UserEntity;
 }
 const UserBox = ({ item }: UserBoxProps) => {
+  const user = useUsersContext();
   const router = useRouter();
-  const { mutateAsync, isLoading } = useMutation({
+  const { mutate, isLoading } = useMutation({
     mutationKey: "conversation",
-    mutationFn: () => getSesssionConversation(item.id),
+    mutationFn: async () =>
+      await getSesssionConversation(
+        {
+          userId: item.id,
+        },
+        user.accessToken
+      ),
+    onSuccess: (conversation) => {
+      router.push(`/conversation/${conversation.id}`);
+    },
   });
-  const handleClick = () => {
-    mutateAsync().then((res) => {
-      router.push(`/conversation/${res.data.id}`);
-    });
-  };
   return (
     <>
       <div
-        onClick={handleClick}
+        onClick={() => mutate()}
         className="
         w-full 
         relative 
