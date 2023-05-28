@@ -10,7 +10,7 @@ function Sidebar({ children, user }: SidebarProps) {
     <div className="h-full">
       <DesktopSidebar user={user!} />
       <MobileFooter />
-      <main className="sm:pl-20 h-full">{children}</main>
+      <main className="sm:pl-20 lg:pl-20 h-full">{children}</main>
     </div>
   );
 }
