@@ -1,4 +1,5 @@
 import { Message } from 'src/message/entities/message.entity';
+import { User } from 'src/user/entities/user.entity';
 import {
   Column,
   CreateDateColumn,
@@ -8,30 +9,34 @@ import {
 } from 'typeorm';
 @Entity()
 export class Conversation {
+  constructor(partial?: Partial<Conversation>) {
+    Object.assign(this, partial);
+  }
   @PrimaryGeneratedColumn()
   id: number;
 
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;
 
-  @Column({ type: 'date' })
+  @Column({ nullable: true, type: 'text' })
   lastMessage: Message;
 
-  @Column()
+  @Column({ nullable: true })
   name: string;
 
   @Column()
   isGroup: boolean;
 
-  @Column({ type: 'simple-array' })
+  @Column({ type: 'simple-array', nullable: true })
   messagesIds: string[];
 
   @OneToMany(() => Message, (message) => message.conversation)
   messages: Message[];
 
   @Column({ type: 'simple-array' })
-  userIds: string[];
+  userIds: number[];
 
+  //TODO fix delete this ?
   @OneToMany(() => Message, (message) => message.user)
-  users: string[];
+  users: User[];
 }
