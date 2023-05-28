@@ -31,7 +31,7 @@
   "scripts": {
     "dev:f": "pnpm -r --filter @messenger/frontend dev",
     "dev:b": "pnpm -r --filter @messenger/backend start:dev",
-    "ta:dev": "pnpm -r --filter @messenger/frontend tauri:dev",
+    "dev:t": "pnpm -r --filter @messenger/frontend tauri:dev",
     "prepare": "husky install",
     "lint-staged": "lint-staged --allow-empty",
     "lint-staged:js": "eslint --ext .js,.jsx,.ts,.tsx ",
