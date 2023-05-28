@@ -1,8 +1,8 @@
-import useRoutes from "@/hooks/useRoutes";
+import { User } from "shared/types";
 import { useState } from "react";
+import useRoutes from "@/hooks/useRoutes";
 import DesktopItem from "./DesktopItem";
-import { User } from "@/shared/types";
-import Avater from "../Avater";
+import Avater from "../Avatar";
 interface DesktopSidebarProps {
   user: User;
 }
@@ -20,7 +20,6 @@ const DesktopSidebar = ({ user }: DesktopSidebarProps) => {
       sm:w-20
       sm:px-2
       sm:overflow-y-auto
-      sm:bg-white
       sm:border-r-[1px]
       sm:pb-4
       sm:flex

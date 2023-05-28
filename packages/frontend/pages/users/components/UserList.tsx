@@ -21,6 +21,9 @@ const UserList = ({ items }: UserListProps) => {
       block
       w-full
       left-0
+      sm:left-20
+      sm:w-[14rem]
+      sm:pb-0
     "
     >
       <div className="px-5">
@@ -33,7 +36,7 @@ const UserList = ({ items }: UserListProps) => {
             py-4
           "
           >
-            Renders
+            Friends 🐶
           </div>
           {items?.map((item, index) => (
             <UserBox key={index} item={item} />
