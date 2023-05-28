@@ -1,4 +1,4 @@
-import { User } from "next-auth";
+import { User } from "shared/types";
 import UserBox from "./UserBox";
 
 interface UserListProps {

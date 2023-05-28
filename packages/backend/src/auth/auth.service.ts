@@ -32,6 +32,7 @@ export class AuthService {
       code: 0,
       message: 'Login successfully',
       data: {
+        id,
         email,
         name,
         image,

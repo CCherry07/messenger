@@ -2,9 +2,9 @@ import { getSesssionConversation } from "@/apis/conversation";
 import Avatar from "@/components/Avatar";
 import { useRouter } from "next/navigation";
 import { useMutation } from "react-query";
-import { UserEntity } from "shared/types";
+import { User } from "shared/types";
 interface UserBoxProps {
-  item: UserEntity;
+  item: User;
 }
 const UserBox = ({ item }: UserBoxProps) => {
   const router = useRouter();
