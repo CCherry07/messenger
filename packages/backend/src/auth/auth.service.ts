@@ -37,7 +37,7 @@ export class AuthService {
         name,
         image,
         token: this.jwtService.sign(
-          { name, email, sub: id },
+          { name, email, id },
           {
             privateKey: jwtContants.secret,
           },
@@ -67,7 +67,7 @@ export class AuthService {
     return {
       code: 0,
       token: this.jwtService.sign(
-        { name, email, sub: newUser.data.id },
+        { name, email, id: newUser.data.id },
         {
           privateKey: jwtContants.secret,
         },

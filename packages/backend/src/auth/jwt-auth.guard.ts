@@ -37,7 +37,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
       if (Object.keys(user).length > 0) {
         const resData = await userService.findOne({
           email: user.email,
-          id: user.sub,
+          id: user.id,
         });
         if (resData) return true;
       }
