@@ -13,6 +13,10 @@ module.exports = {
       extends: ["next/core-web-vitals"],
       parser: "@typescript-eslint/parser",
       plugins: ["@typescript-eslint"],
+      rules: {
+        "@typescript-eslint/no-non-null-assertion": "off",
+        "@typescript-eslint/ban-ts-comment": "off"
+      }
     },
     {
       files: ["packages/backend/**/*.{ts,tsx}"],
