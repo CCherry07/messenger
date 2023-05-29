@@ -14,6 +14,9 @@ export class Message {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Column({ type: 'enum', enum: ['text', 'image', 'file'], default: 'text' })
+  type: string;
+
   @ManyToOne(() => User, (user) => user.messages)
   user: User;
 
