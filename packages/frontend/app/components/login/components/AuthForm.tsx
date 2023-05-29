@@ -51,30 +51,13 @@ const AuthForm = () => {
           redirect: false,
         })
           .then((res) => {
-            if (!res?.ok && res?.error) {
+            if (!res?.ok || res?.error) {
               toast.error("Login failed");
             } else {
               toast.success("Login success");
             }
           })
           .finally(() => setIsLoading(false));
-
-        // client("auth/login", {
-        //   data,
-        // })
-        //   .then(
-        //     async (res) => {
-        //       session.data = res.data;
-        //       session.status = "authenticated";
-        //       toast.success(res.data.message || "Login success");
-        //     },
-        //     (err) => {
-        //       toast.error(err.message);
-        //     }
-        //   )
-        //   .finally(() => {
-        //     setIsLoading(false);
-        //   });
       } else {
         Axios.post("/api/auth/register", data)
           .then(

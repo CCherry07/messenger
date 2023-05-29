@@ -21,7 +21,7 @@ const Avater = ({ user }: AvaterProps) => {
         <Image
           fill
           alt={user?.name}
-          src={user?.image || "../public/images/logo.png"}
+          src={user?.image || "/images/default-avatar.png"}
         />
       </div>
       <span

@@ -46,7 +46,7 @@ export class ConversationService {
       const conversation = new Conversation({
         name,
         isGroup,
-        userIds: members,
+        userIds: [...members, currentUserId],
       });
       const res = await this.conversation.save(conversation);
       const newCU = members.map((member) => {
@@ -78,7 +78,7 @@ export class ConversationService {
 
     const newConversation = new Conversation({
       isGroup: false,
-      userIds: [userId],
+      userIds: [userId, currentUserId],
     });
     const res = await this.conversation.save(newConversation);
     const newCU = new Conversations_Users({
