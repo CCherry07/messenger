@@ -1,14 +1,14 @@
 import { getSesssionConversation } from "@/apis/conversations";
 import Avatar from "@/components/Avatar";
+import { useUserContext } from "@/context/UserContext";
 import { useRouter } from "next/navigation";
 import { useMutation } from "react-query";
-import { UserEntity } from "shared/types";
-import { useUsersContext } from "../context";
+import { EntitiesTypes } from "shared/types";
 interface UserBoxProps {
-  item: UserEntity;
+  item: EntitiesTypes["UserEntity"];
 }
 const UserBox = ({ item }: UserBoxProps) => {
-  const user = useUsersContext();
+  const user = useUserContext();
   const router = useRouter();
   const { mutate, isLoading } = useMutation({
     mutationKey: "conversation",
@@ -16,11 +16,12 @@ const UserBox = ({ item }: UserBoxProps) => {
       await getSesssionConversation(
         {
           userId: item.id,
+          currentUserId: user.id,
         },
         user.accessToken
       ),
     onSuccess: (conversation) => {
-      router.push(`/conversation/${conversation.id}`);
+      router.push(`/conversations/${conversation.id}`);
     },
   });
   return (

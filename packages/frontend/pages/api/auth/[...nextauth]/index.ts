@@ -1,4 +1,4 @@
-import NextAuth, { AuthOptions } from "next-auth";
+import NextAuth, { AuthOptions, DefaultUser } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GithubProviders from "next-auth/providers/github";
 import GoogleProviders from "next-auth/providers/google";
@@ -10,7 +10,11 @@ declare module "next-auth" {
     email: string;
     name: string;
     image: string;
-    token?: string;
+    token: string;
+  }
+  interface Session {
+    accessToken?: string;
+    user: User;
   }
 }
 
@@ -51,6 +55,17 @@ export const authOptions: AuthOptions = {
   },
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
+    async session({ session, token }) {
+      if (token?.accessToken) {
+        session.user = {
+          ...session.user,
+          token: token.accessToken as string,
+          id: token.id || (token?.sub as unknown as string),
+        };
+        session.accessToken = token.accessToken as string;
+      }
+      return session;
+    },
     async jwt({ token, user }) {
       if (user) {
         token.accessToken = user?.token;

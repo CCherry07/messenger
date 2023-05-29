@@ -1,27 +1,33 @@
 import getUsers from "@/apis/user/getUsers";
 import Sidebar from "@/components/sidebar/Sidebar";
-import { User, EntitiesTypes } from "shared/types";
+import { EntitiesTypes } from "shared/types";
 import { useQuery } from "react-query";
 import UserList from "./components/UserList";
-import UsersContext from "./context";
+import Head from "next/head";
+import { useUserContext } from "@/context/UserContext";
 
 interface UsersLayoutProps {
   children: React.ReactNode;
-  user: User;
 }
 
-export default function UsersLayout({ children, user }: UsersLayoutProps) {
+export default function UsersLayout({ children }: UsersLayoutProps) {
+  const user = useUserContext();
   const { data: users } = useQuery<EntitiesTypes["UserEntity"][]>({
     queryKey: "users",
     queryFn: () => getUsers(user.email, user.accessToken),
   });
 
   return (
-    <UsersContext.Provider value={user}>
+    <>
+      <Head>
+        <title>Users</title>
+        <meta name="description" content="Users" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <Sidebar user={user}>
         <UserList items={users!} />
         <div className="h-full">{children}</div>
       </Sidebar>
-    </UsersContext.Provider>
+    </>
   );
 }

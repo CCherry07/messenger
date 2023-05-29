@@ -3,6 +3,7 @@ import { client } from "@/utils/client";
 // 根据userId获取会话信息
 interface GetConversationParams {
   userId: number;
+  currentUserId: number;
   isGroup?: boolean;
   members?: number[];
   name?: string;
@@ -20,11 +21,14 @@ export const getSesssionConversation = async (
   });
 };
 
-export const createConversation = async (params: GetConversationParams) => {
-  const { data } = await client(`/conversation`, {
+export const getConversationsByUserId = async (
+  userId: number,
+  token: string
+) => {
+  return await client(`conversation/user`, {
+    token,
     data: {
-      ...params,
+      userId,
     },
   });
-  return data;
 };

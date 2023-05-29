@@ -1,9 +1,9 @@
-import Head from "next/head";
 import type { User } from "shared/types";
 import { EmptyState } from "@/components/EmptyState";
 import Layout from "./layout";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import getCurrentUser from "@/apis/auth/getCurrentUser";
+import UserContext from "@/context/UserContext";
 interface UsersProps {
   user: User | null;
 }
@@ -22,18 +22,13 @@ export const Users = ({
   user,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   return (
-    <>
-      <Head>
-        <title>Users</title>
-        <meta name="description" content="Users" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <Layout user={user!}>
+    <UserContext.Provider value={user!}>
+      <Layout>
         <div className="sm:block lg:block sm:pl-[14rem] lg:pl-80 h-full">
           <EmptyState />
         </div>
       </Layout>
-    </>
+    </UserContext.Provider>
   );
 };
 export default Users;

@@ -1,4 +1,6 @@
 import { QueryCache } from "react-query";
+import { useSession } from "next-auth/react";
+import React from "react";
 // 获取环境变量
 
 const apiURL = process.env.NEXT_PUBLIC_API_URL;
@@ -9,7 +11,7 @@ interface ClientParameter {
   customHeaders: HeadersInit;
 }
 
-async function client(
+export async function client(
   endpoint: string,
   {
     data,
@@ -28,7 +30,6 @@ async function client(
     },
     ...customConfig,
   };
-
   return fetch(`${apiURL}/${endpoint}`, config).then(async (response) => {
     if (response.status === 401) {
       new QueryCache().clear();
@@ -51,4 +52,12 @@ async function client(
   });
 }
 
-export { client };
+export const useClient = () => {
+  const { data: session } = useSession();
+  const { token } = session?.user || {};
+  return React.useCallback(
+    (endpoint: string, config: Partial<ClientParameter> | undefined) =>
+      client(endpoint, { ...config, token }),
+    [token]
+  );
+};
