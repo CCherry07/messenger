@@ -20,6 +20,11 @@ export class MessageController {
     return this.messageService.create(createMessageDto);
   }
 
+  @Post('conversationId')
+  getMessagesByConversationId(@Body() conversationId: string) {
+    return this.messageService.getMessagesByConversationId(conversationId);
+  }
+
   @Get()
   findAll() {
     return this.messageService.findAll();

@@ -130,8 +130,24 @@ export class ConversationService {
     return `This action returns all conversation`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} conversation`;
+  async findOne(id: number) {
+    const conversation = await this.conversation.findOne({
+      where: {
+        id,
+      },
+      relations: ['users'],
+    });
+
+    if (!conversation) {
+      return {
+        code: 404,
+        message: 'conversation not found',
+      };
+    }
+    return {
+      code: 0,
+      data: conversation,
+    };
   }
 
   update(id: number, updateConversationDto: UpdateConversationDto) {

@@ -35,6 +35,9 @@ export class Message {
   @OneToMany(() => User, (user) => user.seenMessages)
   seen: User[];
 
+  @Column({ nullable: true, unique: true })
+  conversationId: string;
+
   @ManyToOne(() => Conversation, (conversation) => conversation.messages)
   conversation: Conversation;
 

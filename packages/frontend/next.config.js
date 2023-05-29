@@ -2,7 +2,7 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { resolve } = require("node:path");
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const { i18n } = require("./next-i18next.config");
+// const { i18n } = require("./next-i18next.config");
 
 const __DEV__ = process.env.NODE_ENV === "development";
 
@@ -16,7 +16,7 @@ const envConfig = require("dotenv").config({
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  i18n,
+  // i18n,
   images: {
     domains: [
       "res.cloudinary.com",

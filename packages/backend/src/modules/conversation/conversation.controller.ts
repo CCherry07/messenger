@@ -1,19 +1,13 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
+import { Controller, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { ConversationService } from './conversation.service';
 import { CreateConversationDto } from './dto/create-conversation.dto';
 import { UpdateConversationDto } from './dto/update-conversation.dto';
 
 @Controller('conversation')
 export class ConversationController {
-  constructor(private readonly conversationService: ConversationService) {}
+  constructor(private readonly conversationService: ConversationService) {
+    this.conversationService = conversationService;
+  }
 
   @Post()
   create(@Body() createConversationDto: CreateConversationDto) {
@@ -24,12 +18,8 @@ export class ConversationController {
   getConversationByUserId(@Body('userId') userId: string) {
     return this.conversationService.getConversationsByUserId(+userId);
   }
-  @Get()
-  findAll() {
-    return this.conversationService.findAll();
-  }
 
-  @Get(':id')
+  @Post(':id')
   findOne(@Param('id') id: string) {
     return this.conversationService.findOne(+id);
   }

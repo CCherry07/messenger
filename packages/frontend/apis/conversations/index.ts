@@ -1,6 +1,5 @@
 import { client } from "@/utils/client";
 
-// 根据userId获取会话信息
 interface GetConversationParams {
   userId: number;
   currentUserId: number;
@@ -30,5 +29,15 @@ export const getConversationsByUserId = async (
     data: {
       userId,
     },
+  });
+};
+
+export const getConversationById = async (
+  conversationId: string,
+  token: string
+) => {
+  return await client(`conversation/${conversationId}`, {
+    token,
+    method: "POST",
   });
 };

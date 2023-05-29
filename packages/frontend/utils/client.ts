@@ -1,10 +1,10 @@
-import { QueryCache } from "react-query";
+// import { QueryCache } from "react-query";
 import { useSession } from "next-auth/react";
 import React from "react";
 // 获取环境变量
 
 const apiURL = process.env.NEXT_PUBLIC_API_URL;
-interface ClientParameter {
+interface ClientParameter extends RequestInit {
   data: Record<string, unknown>;
   token: string;
   headers: HeadersInit;
@@ -32,7 +32,7 @@ export async function client(
   };
   return fetch(`${apiURL}/${endpoint}`, config).then(async (response) => {
     if (response.status === 401) {
-      new QueryCache().clear();
+      // new QueryCache().clear();
       // refresh the page for them
       window.location.assign(window.location as unknown as string);
       return Promise.reject({ message: "Please re-authenticate." });
@@ -52,12 +52,12 @@ export async function client(
   });
 }
 
-export const useClient = () => {
-  const { data: session } = useSession();
-  const { token } = session?.user || {};
-  return React.useCallback(
-    (endpoint: string, config: Partial<ClientParameter> | undefined) =>
-      client(endpoint, { ...config, token }),
-    [token]
-  );
-};
+// export const useClient = () => {
+//   const { data: session } = useSession();
+//   const { token } = session?.user || {};
+//   return React.useCallback(
+//     (endpoint: string, config: Partial<ClientParameter> | undefined) =>
+//       client(endpoint, { ...config, token }),
+//     [token]
+//   );
+// };
