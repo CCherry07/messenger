@@ -3,4 +3,5 @@ export class CreateConversationDto {
   isGroup?: boolean;
   members?: number[];
   name?: string;
+  currentUserId?: number;
 }

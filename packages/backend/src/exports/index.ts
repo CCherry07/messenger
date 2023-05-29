@@ -7,3 +7,10 @@ export interface EntitiesTypes {
   MessageEntity: Message;
   ConversationEntity: Conversation;
 }
+
+export interface ServiceResponse<T> {
+  code: number;
+  data?: T;
+  message?: string;
+  success?: boolean;
+}

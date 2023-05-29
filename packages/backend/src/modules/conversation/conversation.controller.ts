@@ -20,6 +20,10 @@ export class ConversationController {
     return this.conversationService.create(createConversationDto);
   }
 
+  @Post('user')
+  getConversationByUserId(@Body('userId') userId: string) {
+    return this.conversationService.getConversationsByUserId(+userId);
+  }
   @Get()
   findAll() {
     return this.conversationService.findAll();

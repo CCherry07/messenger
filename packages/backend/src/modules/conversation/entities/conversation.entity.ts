@@ -4,6 +4,8 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinTable,
+  ManyToMany,
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -18,8 +20,8 @@ export class Conversation {
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;
 
-  @Column({ nullable: true, type: 'text' })
-  lastMessage: Message;
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  lastMessageAt: Date;
 
   @Column({ nullable: true })
   name: string;
@@ -36,7 +38,17 @@ export class Conversation {
   @Column({ type: 'simple-array' })
   userIds: number[];
 
-  //TODO fix delete this ?
-  @OneToMany(() => Message, (message) => message.user)
+  @ManyToMany(() => User, (user) => user.conversations)
+  @JoinTable({
+    name: 'conversations_users',
+    joinColumn: {
+      name: 'conversationId',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'userId',
+      referencedColumnName: 'id',
+    },
+  })
   users: User[];
 }
