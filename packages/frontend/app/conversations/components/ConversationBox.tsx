@@ -1,7 +1,9 @@
+import dayjs from "dayjs";
+import updateLocale from "dayjs/plugin/updateLocale";
+dayjs.extend(updateLocale);
 import { EntitiesTypes } from "shared/types";
 import clsx from "clsx";
 import { useSession } from "next-auth/react";
-import dayjs from "dayjs";
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo } from "react";
 import Avater from "@/app/components/Avatar";
@@ -42,24 +44,51 @@ const ConversationBox = ({ conversation, selected }: ConversationBoxProps) => {
 
   const lastMessageTimeText = useMemo(() => {
     if (!lastMessage) return null;
-    const time = dayjs(lastMessage.createdAt);
+    const time = dayjs(lastMessage?.createdAt);
+    const relativeTime = dayjs.updateLocale("en", {
+      relativeTime: {
+        future: "in %s",
+        past: "%s ago",
+        s: "a few seconds",
+        m: "a minute",
+        mm: "%d minutes",
+        h: "an hour",
+        hh: "%d hours",
+        d: "a day",
+        dd: "%d days",
+        M: "a month",
+        MM: "%d months",
+        y: "a year",
+        yy: "%d years",
+      },
+    });
+    // console.log(relativeTime);
+
+    const messageYear = time.year();
+    const messageMonth = time.month();
+    const messageDate = time.date();
+
     const newTime = dayjs();
+    const newYear = newTime.year();
+    const newMonth = newTime.month();
+    const newDate = newTime.date();
+
     if (
-      time.year() === newTime.year() &&
-      time.month() === newTime.month() &&
-      time.date() === newTime.date()
+      messageYear === newYear &&
+      messageMonth === newMonth &&
+      messageDate === newDate
     ) {
       return time.format("HH:mm");
     } else if (
-      time.year() === newTime.year() &&
-      time.month() === newTime.month() &&
-      time.date() === newTime.date() - 1
+      messageYear === newYear &&
+      messageMonth === newMonth &&
+      messageDate === newDate - 1
     ) {
-      return "昨天";
+      return "yesterday";
     } else if (
-      time.year() === newTime.year() &&
-      time.month() === newTime.month() &&
-      time.date() < newTime.date() - 6
+      messageYear === newYear &&
+      messageMonth === newMonth &&
+      messageDate === newDate - 6
     ) {
       return time.format("ww");
     } else {
@@ -72,15 +101,15 @@ const ConversationBox = ({ conversation, selected }: ConversationBoxProps) => {
       onClick={handleClick}
       className={clsx(
         `
-    w-full
-    relative
-    flex items-center
-    space-x-3
-    hover:bg-neutral-100
-    rounded-lg
-    transition
-    cursor-pointer
-    p-3
+        w-full
+        relative
+        flex items-center
+        space-x-3
+        hover:bg-neutral-100
+        rounded-lg
+        transition
+        cursor-pointer
+        p-3
   `,
         selected ? "bg-neutral-100" : "bg-white"
       )}

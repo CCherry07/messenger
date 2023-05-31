@@ -1,12 +1,12 @@
 import DesktopSidebar from "./DesktopSidebar";
 import MobileFooter from "./MobileFooter";
-import getSession from "@/utils/getSession";
+import getSessionByServer from "@/utils/getSessionByServer";
 interface SidebarProps {
   children: React.ReactNode;
 }
 
 async function Sidebar({ children }: SidebarProps) {
-  const session = await getSession();
+  const session = await getSessionByServer();
   return (
     <div className="h-full">
       <DesktopSidebar user={session!.user} />

@@ -12,3 +12,14 @@ export const getMessagesByConversationId = async (
     method: "POST",
   });
 };
+
+export const sendMessage = async (
+  data: Record<string, unknown>,
+  token: string
+) => {
+  return await client(`message`, {
+    token,
+    data,
+    method: "POST",
+  });
+};

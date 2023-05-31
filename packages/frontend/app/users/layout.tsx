@@ -1,13 +1,13 @@
 import getUsers from "@/apis/user/getUsers";
 import UserList from "./components/UserList";
 import Sidebar from "@/app/components/sidebar/Sidebar";
-import getSession from "@/utils/getSession";
+import getSessionByServer from "@/utils/getSessionByServer";
 export default async function UsersLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getSession();
+  const session = await getSessionByServer();
   const users = await getUsers(
     session!.user?.email,
     session!.user?.accessToken
