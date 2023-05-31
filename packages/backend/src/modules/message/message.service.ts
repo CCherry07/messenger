@@ -4,7 +4,11 @@ import { UpdateMessageDto } from './dto/update-message.dto';
 import { Message } from './entities/message.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-
+interface userInfo {
+  id: string;
+  name: string;
+  email: string;
+}
 @Injectable()
 export class MessageService {
   constructor(
@@ -13,8 +17,11 @@ export class MessageService {
   ) {
     this.messageRepository = messageRepository;
   }
-  create(createMessageDto: CreateMessageDto) {
-    return 'This action adds a new message';
+  create(createMessageDto: CreateMessageDto, userInfo: userInfo) {
+    const newMessage = this.messageRepository.create({
+      ...createMessageDto,
+    });
+    console.log('newMessage', newMessage);
   }
 
   async getMessagesByConversationId(conversationId: string) {

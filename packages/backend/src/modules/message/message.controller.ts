@@ -10,14 +10,19 @@ import {
 import { MessageService } from './message.service';
 import { CreateMessageDto } from './dto/create-message.dto';
 import { UpdateMessageDto } from './dto/update-message.dto';
+import { GetInfoByToken } from 'src/get-info-by-token/get-info-by-token.decorator';
 
 @Controller('message')
 export class MessageController {
   constructor(private readonly messageService: MessageService) {}
 
   @Post()
-  create(@Body() createMessageDto: CreateMessageDto) {
-    return this.messageService.create(createMessageDto);
+  create(
+    @GetInfoByToken() userInfo,
+    @Body() createMessageDto: CreateMessageDto,
+  ) {
+    console.log('userInfo', userInfo);
+    return this.messageService.create(createMessageDto, userInfo);
   }
 
   @Post('conversationId')
