@@ -26,8 +26,10 @@ export class MessageController {
   }
 
   @Post('conversationId')
-  getMessagesByConversationId(@Body() conversationId: string) {
-    return this.messageService.getMessagesByConversationId(conversationId);
+  getMessagesByConversationId(@Body() body: { conversationId: string }) {
+    return this.messageService.getMessagesByConversationId(
+      +body.conversationId,
+    );
   }
 
   @Get()

@@ -4,8 +4,9 @@ import { UpdateMessageDto } from './dto/update-message.dto';
 import { Message } from './entities/message.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Conversation } from '../conversation/entities/conversation.entity';
 interface userInfo {
-  id: string;
+  id: number;
   name: string;
   email: string;
 }
@@ -14,17 +15,42 @@ export class MessageService {
   constructor(
     @InjectRepository(Message)
     private readonly messageRepository: Repository<Message>,
+    @InjectRepository(Conversation)
+    private readonly conversationRepository: Repository<Conversation>,
   ) {
     this.messageRepository = messageRepository;
+    this.conversationRepository = conversationRepository;
   }
-  create(createMessageDto: CreateMessageDto, userInfo: userInfo) {
-    const newMessage = this.messageRepository.create({
-      ...createMessageDto,
+  async create(createMessageDto: CreateMessageDto, userInfo: userInfo) {
+    const { conversationId } = createMessageDto;
+    // 找到对应的会话
+    const conversation = await this.conversationRepository.findOne({
+      where: {
+        id: conversationId,
+      },
+      relations: ['users', 'messages'],
     });
-    console.log('newMessage', newMessage);
+    if (!conversation) {
+      return {
+        code: 400,
+        message: 'No conversation found',
+      };
+    }
+    const messageType = createMessageDto.type ?? 'text';
+    const newMessage = new Message({ ...createMessageDto, type: messageType });
+    newMessage.seenderId = userInfo.id;
+    const saveMessage = await this.messageRepository.save(newMessage);
+    // TODO 需要 seen 数组嘛？
+    conversation.lastMessageAt = new Date();
+    conversation.messages.unshift(saveMessage);
+    await this.conversationRepository.save(conversation);
+    return {
+      code: 0,
+      data: saveMessage,
+    };
   }
 
-  async getMessagesByConversationId(conversationId: string) {
+  async getMessagesByConversationId(conversationId: number) {
     const messages = await this.messageRepository.find({
       where: {
         conversationId,
@@ -41,6 +67,7 @@ export class MessageService {
         message: 'No messages found',
       };
     }
+
     return {
       code: 0,
       data: messages,

@@ -11,6 +11,9 @@ import { User } from 'src/modules/user/entities/user.entity';
 
 @Entity()
 export class Message {
+  constructor(partial: Partial<Message>) {
+    Object.assign(this, partial);
+  }
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -20,30 +23,30 @@ export class Message {
   @ManyToOne(() => User, (user) => user.messages)
   user: User;
 
-  @Column('text')
+  @Column({ nullable: true })
   body: string;
 
-  @Column()
+  @Column({ nullable: true })
   image: string;
 
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;
 
-  @Column({ type: 'simple-array' })
+  @Column({ type: 'simple-array', nullable: true })
   seenIds: string[];
 
   @OneToMany(() => User, (user) => user.seenMessages)
   seen: User[];
 
-  @Column({ nullable: true, unique: true })
-  conversationId: string;
+  @Column()
+  conversationId: number;
 
   @ManyToOne(() => Conversation, (conversation) => conversation.messages)
   conversation: Conversation;
 
   @Column()
-  seenderId: string;
+  seenderId: number;
 
-  @ManyToOne(() => User, (user) => user.seenMessageIds)
+  @ManyToOne(() => User, (user) => user.messages)
   seender: User;
 }

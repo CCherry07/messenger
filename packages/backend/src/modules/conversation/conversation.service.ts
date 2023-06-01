@@ -102,12 +102,11 @@ export class ConversationService {
     const conversations = await this.conversation.find({
       where: {
         userIds: Like(`%${userId}%`) as any,
-        // messages: {
-        //   seender: true,
-        //   seen: true,
-        // },
       },
       order: {
+        messages: {
+          createdAt: 'ASC',
+        },
         lastMessageAt: 'DESC',
       },
       relations: ['messages', 'users'],
