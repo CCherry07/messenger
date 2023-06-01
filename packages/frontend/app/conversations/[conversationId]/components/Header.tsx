@@ -50,7 +50,7 @@ const Header = ({ conversation }: HeaderProps) => {
         <Avater user={conversation.users[0]} />
 
         <div className="flex flex-col">
-          <div>{conversation.name || conversation.users[0].name}</div>
+          <div>{conversation.name || conversation.users?.[0]?.name}</div>
           <div className="text-sm font-light text-neutral-500">
             {statusText}
           </div>

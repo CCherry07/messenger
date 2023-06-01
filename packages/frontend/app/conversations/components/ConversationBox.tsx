@@ -15,7 +15,6 @@ const ConversationBox = ({ conversation, selected }: ConversationBoxProps) => {
   const { data: session } = useSession();
   const { users } = conversation;
   const router = useRouter();
-
   const handleClick = useCallback(() => {
     router.push(`/conversations/${conversation.id}`);
   }, [conversation.id, router]);
@@ -63,7 +62,6 @@ const ConversationBox = ({ conversation, selected }: ConversationBoxProps) => {
       },
     });
     // console.log(relativeTime);
-
     const messageYear = time.year();
     const messageMonth = time.month();
     const messageDate = time.date();
@@ -120,7 +118,7 @@ const ConversationBox = ({ conversation, selected }: ConversationBoxProps) => {
           <span className="absolute inset-0" aria-hidden="true" />
           <div className="flex justify-between items-center mb-1">
             <p className="text-sm font-medium text-gray-900">
-              {conversation.name || users[0].name}
+              {conversation.name || users?.[0]?.name}
             </p>
             <p className="text-xs font-light text-gray-500">
               {lastMessageTimeText}
