@@ -36,7 +36,7 @@ const ConversationIdPage = async ({
     <div className="lg:pl-80 h-screen">
       <div className="h-full flex flex-col">
         <Header conversation={conversation} />
-        <Body />
+        <Body messages={messages} />
         <Form />
       </div>
     </div>
