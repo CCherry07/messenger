@@ -21,7 +21,10 @@ const Avater = ({ user }: AvaterProps) => {
         <Image
           fill
           alt={user?.name}
-          src={user?.image || "/images/default-avatar.png"}
+          src={
+            user?.image ||
+            "https://avatars.githubusercontent.com/u/79909910?v=4"
+          }
         />
       </div>
       <span
