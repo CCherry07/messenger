@@ -201,7 +201,9 @@ export class ConversationService {
       },
     });
     await this.cu.remove(currentConversationUsers);
-
+    await this.Messages_Seen.delete({
+      messageId: In(conversation.messages.map((message) => message.id)),
+    });
     const messageIds = conversation.messages.map((message) => message.id);
     await this.message.delete(messageIds);
     await this.conversation.remove(conversation);
