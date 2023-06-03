@@ -7,6 +7,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo } from "react";
 import Avater from "@/app/components/Avatar";
+import useRelativeTimeText from "@/app/hooks/useRelativeTimeText";
 interface ConversationBoxProps {
   conversation: EntitiesTypes["ConversationEntity"];
   selected: boolean;
@@ -41,58 +42,7 @@ const ConversationBox = ({ conversation, selected }: ConversationBoxProps) => {
     return "Started a conversation";
   }, [lastMessage]);
 
-  const lastMessageTimeText = useMemo(() => {
-    if (!lastMessage) return null;
-    const time = dayjs(lastMessage?.createdAt);
-    const relativeTime = dayjs.updateLocale("en", {
-      relativeTime: {
-        future: "in %s",
-        past: "%s ago",
-        s: "a few seconds",
-        m: "a minute",
-        mm: "%d minutes",
-        h: "an hour",
-        hh: "%d hours",
-        d: "a day",
-        dd: "%d days",
-        M: "a month",
-        MM: "%d months",
-        y: "a year",
-        yy: "%d years",
-      },
-    });
-    // console.log(relativeTime);
-    const messageYear = time.year();
-    const messageMonth = time.month();
-    const messageDate = time.date();
-
-    const newTime = dayjs();
-    const newYear = newTime.year();
-    const newMonth = newTime.month();
-    const newDate = newTime.date();
-
-    if (
-      messageYear === newYear &&
-      messageMonth === newMonth &&
-      messageDate === newDate
-    ) {
-      return time.format("HH:mm");
-    } else if (
-      messageYear === newYear &&
-      messageMonth === newMonth &&
-      messageDate === newDate - 1
-    ) {
-      return "yesterday";
-    } else if (
-      messageYear === newYear &&
-      messageMonth === newMonth &&
-      messageDate === newDate - 6
-    ) {
-      return time.format("ww");
-    } else {
-      return time.format("YYYY-MM-DD");
-    }
-  }, [lastMessage]);
+  const lastMessageTimeText = useRelativeTimeText(lastMessage?.createdAt);
 
   return (
     <div

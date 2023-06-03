@@ -41,3 +41,23 @@ export const getConversationById = async (
     method: "POST",
   });
 };
+
+export const updateSeenWithConversationId = async (
+  conversationId: number,
+  token: string
+) => {
+  return await client(`conversation/${conversationId}/seen`, {
+    token,
+    method: "POST",
+  });
+};
+
+export const deleteConversationById = async (
+  conversationId: number,
+  token: string
+) => {
+  return await client(`conversation/${conversationId}`, {
+    token,
+    method: "DELETE",
+  });
+};

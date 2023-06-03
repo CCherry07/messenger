@@ -29,9 +29,20 @@ const Form = () => {
         image?: string;
         type: "text" | "image" | "file";
       };
-      if (data.event === "success") {
+      if (
+        data.event === "success" &&
+        data.info &&
+        data.info.resource_type !== "raw"
+      ) {
         payload.image = data.info.secure_url;
         payload.type = "image";
+      } else if (
+        data.event === "success" &&
+        data.info &&
+        data.info.resource_type === "raw"
+      ) {
+        payload.image = data.info.secure_url;
+        payload.type = "file";
       }
       if (data.message) {
         payload.body = data.message;

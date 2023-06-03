@@ -39,11 +39,9 @@ const Button = ({
       focus:ring-offset-2
       ${className}
       `,
-        disabled
-          ? "bg-gray-300 opacity-50 text-gray-500 cursor-not-allowed"
-          : "text-white",
+        disabled && "bg-gray-300 opacity-50 text-gray-500 cursor-not-allowed",
         fullWidth ? "w-full" : "w-auto",
-        variant === "secondary" ? "text-gray-900" : "text-white",
+        variant === "secondary" && " text-gray-900",
         variant === "danger" &&
           "bg-rose-500 hover:bg-rose-600 focus-visible:outline-rose-600",
         variant === "primary" &&
