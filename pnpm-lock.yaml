@@ -130,6 +130,7 @@ importers:
 
   packages/frontend:
     specifiers:
+      '@headlessui/react': ^1.7.15
       '@next-auth/typeorm-legacy-adapter': ^2.0.2
       '@tailwindcss/forms': ^0.5.3
       '@tanstack/react-query': ^4.29.12
@@ -167,6 +168,7 @@ importers:
       tailwindcss: 3.3.2
       typescript: 5.0.4
     dependencies:
+      '@headlessui/react': 1.7.15_biqbaboplfbrettd7655fr4n2y
       '@next-auth/typeorm-legacy-adapter': 2.0.2_next-auth@4.22.1
       '@tailwindcss/forms': 0.5.3_tailwindcss@3.3.2
       '@tanstack/react-query': 4.29.12_biqbaboplfbrettd7655fr4n2y
@@ -891,6 +893,18 @@ packages:
   /@eslint/js/8.41.0:
     resolution: {integrity: sha512-LxcyMGxwmTh2lY9FwHPGWOHmYFCZvbrFCBZL4FzSSsxsRPuhrYUg/49/0KDfW8tnIEaEHtfmn6+NPN+1DqaNmA==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
+
+  /@headlessui/react/1.7.15_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-OTO0XtoRQ6JPB1cKNFYBZv2Q0JMqMGNhYP1CjPvcJvjz8YGokz8oAj89HIYZGN0gZzn/4kk9iUpmMF4Q21Gsqw==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: ^16 || ^17 || ^18
+      react-dom: ^16 || ^17 || ^18
+    dependencies:
+      client-only: 0.0.1
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
 
   /@humanwhocodes/config-array/0.11.8:
     resolution: {integrity: sha512-UybHIJzJnR5Qc/MsD9Kr+RpO2h+/P1GhOwdiLPXK5TWk5sgTdu88bTD9UP+CKbPPh5Rni1u0GjAdYQLemG8g+g==}
