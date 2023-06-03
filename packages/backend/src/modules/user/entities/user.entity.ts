@@ -64,7 +64,18 @@ export class User {
   @Column({ type: 'simple-array', nullable: true })
   seenMessageIds: string[];
 
-  @OneToMany(() => Message, (message) => message.user)
+  @ManyToMany(() => Message, (message) => message.seen)
+  @JoinTable({
+    name: 'messages_seen',
+    joinColumn: {
+      name: 'userId',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'messageId',
+      referencedColumnName: 'id',
+    },
+  })
   seenMessages: Message[];
 
   @OneToMany(() => Account, (account) => account.user)

@@ -24,16 +24,13 @@ export class ConversationController {
     return this.conversationService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateConversationDto: UpdateConversationDto,
-  ) {
-    return this.conversationService.update(+id, updateConversationDto);
+  @Post(':id/seen')
+  updateSeen(@Param('id') id: string) {
+    return this.conversationService.updateSeen(+id);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.conversationService.remove(+id);
+    return this.conversationService.removeById(+id);
   }
 }

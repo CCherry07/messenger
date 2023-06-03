@@ -21,7 +21,6 @@ export class MessageController {
     @GetInfoByToken() userInfo,
     @Body() createMessageDto: CreateMessageDto,
   ) {
-    console.log('userInfo', userInfo);
     return this.messageService.create(createMessageDto, userInfo);
   }
 

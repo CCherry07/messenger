@@ -7,6 +7,7 @@ import { In, Like, Repository } from 'typeorm';
 import { ServiceResponse } from 'src/exports';
 import { Message } from '../message/entities/message.entity';
 import { Conversations_Users } from '../entities/conversations_users.entity';
+import { Messages_Seen } from '../entities/messages_seen';
 
 @Injectable()
 export class ConversationService {
@@ -16,10 +17,13 @@ export class ConversationService {
     @InjectRepository(Conversation)
     private readonly conversation: Repository<Conversation>,
     @InjectRepository(Message) private readonly message: Repository<Message>,
+    @InjectRepository(Messages_Seen)
+    private readonly Messages_Seen: Repository<Messages_Seen>,
   ) {
     this.conversation = conversation;
     this.message = message;
     this.cu = cu;
+    this.Messages_Seen = Messages_Seen;
   }
   async create(
     createConversationDto: CreateConversationDto,
@@ -125,10 +129,6 @@ export class ConversationService {
     };
   }
 
-  findAll() {
-    return `This action returns all conversation`;
-  }
-
   async findOne(id: number) {
     const conversation = await this.conversation.findOne({
       where: {
@@ -149,11 +149,65 @@ export class ConversationService {
     };
   }
 
-  update(id: number, updateConversationDto: UpdateConversationDto) {
-    return `This action updates a #${id} conversation`;
+  async updateSeen(id: number) {
+    const conversation = await this.conversation.findOne({
+      where: {
+        id,
+      },
+      relations: ['users', 'messages'],
+    });
+    if (!conversation) {
+      return {
+        code: 404,
+        message: 'conversation not found',
+      };
+    }
+    const lastMessage = conversation.messages.at(-1);
+    if (!lastMessage) {
+      return {
+        code: 404,
+        data: conversation,
+      };
+    }
+    const seen = (conversation.users || []).map((user) => {
+      return new Messages_Seen({
+        messageId: lastMessage.id,
+        userId: user.id,
+      });
+    });
+    await this.Messages_Seen.save(seen);
+    return {
+      code: 0,
+      data: conversation,
+    };
   }
+  async removeById(id: number) {
+    // 删除 conversation 时，同时删除 messages 和 conversation_users
+    const conversation = await this.conversation.findOne({
+      where: {
+        id,
+      },
+      relations: ['messages'],
+    });
+    if (!conversation) {
+      return {
+        code: 404,
+        message: 'conversation not found',
+      };
+    }
+    const currentConversationUsers = await this.cu.find({
+      where: {
+        conversationId: id,
+      },
+    });
+    await this.cu.remove(currentConversationUsers);
 
-  remove(id: number) {
-    return `This action removes a #${id} conversation`;
+    const messageIds = conversation.messages.map((message) => message.id);
+    await this.message.delete(messageIds);
+    await this.conversation.remove(conversation);
+    return {
+      code: 0,
+      message: 'conversation deleted',
+    };
   }
 }

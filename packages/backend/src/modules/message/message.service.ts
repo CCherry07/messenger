@@ -5,6 +5,7 @@ import { Message } from './entities/message.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Conversation } from '../conversation/entities/conversation.entity';
+import { Messages_Seen } from '../entities/messages_seen';
 interface userInfo {
   id: number;
   name: string;
@@ -38,11 +39,10 @@ export class MessageService {
     }
     const messageType = createMessageDto.type ?? 'text';
     const newMessage = new Message({ ...createMessageDto, type: messageType });
-    newMessage.seenderId = userInfo.id;
+    newMessage.senderId = userInfo.id;
     const saveMessage = await this.messageRepository.save(newMessage);
-    // TODO 需要 seen 数组嘛？
     conversation.lastMessageAt = new Date();
-    conversation.messages.unshift(saveMessage);
+    conversation.messages.push(saveMessage);
     await this.conversationRepository.save(conversation);
     return {
       code: 0,
@@ -56,8 +56,9 @@ export class MessageService {
         conversationId,
       },
       order: {
-        createdAt: 'DESC',
+        createdAt: 'ASC',
       },
+      relations: ['sender', 'seen'],
     });
 
     if (!messages) {

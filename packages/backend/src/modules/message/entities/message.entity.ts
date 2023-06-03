@@ -2,6 +2,8 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinTable,
+  ManyToMany,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -35,7 +37,18 @@ export class Message {
   @Column({ type: 'simple-array', nullable: true })
   seenIds: string[];
 
-  @OneToMany(() => User, (user) => user.seenMessages)
+  @ManyToMany(() => User, (user) => user.seenMessages)
+  @JoinTable({
+    name: 'messages_seen',
+    joinColumn: {
+      name: 'messageId',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'userId',
+      referencedColumnName: 'id',
+    },
+  })
   seen: User[];
 
   @Column()
@@ -45,8 +58,8 @@ export class Message {
   conversation: Conversation;
 
   @Column()
-  seenderId: number;
+  senderId: number;
 
   @ManyToOne(() => User, (user) => user.messages)
-  seender: User;
+  sender: User;
 }
