@@ -1,7 +1,7 @@
-import { EntitiesTypes } from "shared/types";
+import { User } from "shared/types";
 import Image from "next/image";
 interface AvaterProps {
-  user: EntitiesTypes["UserEntity"];
+  user: User;
 }
 const Avater = ({ user }: AvaterProps) => {
   return (

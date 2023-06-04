@@ -1,4 +1,4 @@
-import getUsers from "@/apis/user/getUsers";
+import { getUsers } from "@/apis/user";
 import UserList from "./components/UserList";
 import Sidebar from "@/app/components/sidebar/Sidebar";
 import getSessionByServer from "@/utils/getSessionByServer";
