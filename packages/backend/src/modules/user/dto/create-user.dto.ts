@@ -3,4 +3,5 @@ export class CreateUserDto {
   name;
   password;
   hashPassword;
+  image?;
 }
