@@ -2,6 +2,7 @@ import { Controller, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { ConversationService } from './conversation.service';
 import { CreateConversationDto } from './dto/create-conversation.dto';
 import { UpdateConversationDto } from './dto/update-conversation.dto';
+import { GetInfoByToken } from 'src/get-info-by-token/get-info-by-token.decorator';
 
 @Controller('conversation')
 export class ConversationController {
@@ -10,8 +11,11 @@ export class ConversationController {
   }
 
   @Post()
-  create(@Body() createConversationDto: CreateConversationDto) {
-    return this.conversationService.create(createConversationDto);
+  create(
+    @GetInfoByToken() info,
+    @Body() createConversationDto: CreateConversationDto,
+  ) {
+    return this.conversationService.create(createConversationDto, info);
   }
 
   @Post('user')

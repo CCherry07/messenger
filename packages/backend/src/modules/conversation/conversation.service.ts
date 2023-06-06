@@ -27,13 +27,29 @@ export class ConversationService {
   }
   async create(
     createConversationDto: CreateConversationDto,
+    info: any,
   ): Promise<ServiceResponse<Conversation>> {
-    return await this.newConversation(createConversationDto);
+    const payload = {
+      ...createConversationDto,
+      currentUserId: info.id,
+    };
+    const hasConversation = await this.conversation.findOne({
+      where: {
+        userIds: In([payload.userId, payload.currentUserId]),
+      },
+    });
+    console.log('hasConversation', hasConversation);
+    if (hasConversation) {
+      return {
+        code: 0,
+        data: hasConversation,
+      };
+    }
+    return await this.newConversation(payload);
   }
 
-  async newConversation(createConversationDto: CreateConversationDto) {
-    const { isGroup, members, userId, name, currentUserId } =
-      createConversationDto;
+  async newConversation(payload: any) {
+    const { isGroup, members, userId, name, currentUserId } = payload;
     if (isGroup && members.length < 2) {
       return {
         code: 400,
@@ -53,7 +69,7 @@ export class ConversationService {
         userIds: [...members, currentUserId],
       });
       const res = await this.conversation.save(conversation);
-      const newCU = members.map((member) => {
+      const newCU = [...members, currentUserId].map((member) => {
         return new Conversations_Users({
           userId: member,
           conversationId: res.id,
@@ -65,10 +81,12 @@ export class ConversationService {
         data: await this.conversation.save(conversation),
       };
     }
+
+    // check if conversation already exists
     const existstingConversations = await this.conversation.find({
       where: {
         isGroup: false,
-        userIds: In([userId]),
+        userIds: In([currentUserId]),
       },
     });
 
