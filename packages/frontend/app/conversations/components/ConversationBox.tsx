@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { useCallback, useMemo } from "react";
 import Avater from "@/app/components/Avatar";
 import useRelativeTimeText from "@/app/hooks/useRelativeTimeText";
+import AvaterGroup from "@/app/components/AvaterGroup";
 interface ConversationBoxProps {
   conversation: EntitiesTypes["ConversationEntity"];
   selected: boolean;
@@ -62,7 +63,11 @@ const ConversationBox = ({ conversation, selected }: ConversationBoxProps) => {
         selected ? "bg-neutral-100" : "bg-white"
       )}
     >
-      <Avater user={users[0]} />
+      {conversation.isGroup ? (
+        <AvaterGroup users={conversation.users} />
+      ) : (
+        <Avater user={users[0]} />
+      )}
       <div className="min-w-0 flex-1">
         <div className="focus:outline-none">
           <span className="absolute inset-0" aria-hidden="true" />
