@@ -20,6 +20,7 @@ const Avater = ({ user }: AvaterProps) => {
       >
         <Image
           fill
+          sizes="32px"
           alt={user?.name}
           src={
             user?.image ||

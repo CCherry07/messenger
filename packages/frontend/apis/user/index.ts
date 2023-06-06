@@ -12,13 +12,14 @@ export const getUsers = async (email: string, token: string) => {
 
 // update user
 export const updateUser = async (
-  user: Omit<User, "accessToken">,
+  user: Omit<User, "accessToken" | "id">,
   token: string
 ) => {
   const updatedUser = await client("user/update", {
     token,
+    method: "PATCH",
     data: {
-      user,
+      ...user,
     },
   });
   return updatedUser;

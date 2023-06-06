@@ -23,7 +23,6 @@ const SettingsModal = ({ isOpen, onClose, user }: SettingsModalProps) => {
   const onHandleSubmit = async (data: FieldValues) => {
     await updateUser(
       {
-        id: user?.id,
         name: data?.name,
         email: data?.email,
         image: data?.image,
@@ -47,9 +46,7 @@ const SettingsModal = ({ isOpen, onClose, user }: SettingsModalProps) => {
   const image = watch("image");
   const handleImageUpload = async (result: any) => {
     if (result) {
-      setValue("image", result?.info.url, {
-        shouldValidate: true,
-      });
+      setValue("image", result.info.url);
     }
   };
 
@@ -73,8 +70,8 @@ const SettingsModal = ({ isOpen, onClose, user }: SettingsModalProps) => {
             >
               <Input
                 label={"Name"}
-                id={"Name"}
-                name={"Name"}
+                id={"name"}
+                name={"name"}
                 register={register}
                 required={true}
                 errors={formState.errors}
@@ -100,6 +97,7 @@ const SettingsModal = ({ isOpen, onClose, user }: SettingsModalProps) => {
               "
                 >
                   <Image
+                    sizes="48px"
                     width={48}
                     height={48}
                     className="rounded-full"
