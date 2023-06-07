@@ -35,10 +35,10 @@ export class ConversationService {
     };
     const hasConversation = await this.conversation.findOne({
       where: {
+        isGroup: payload.isGroup,
         userIds: In([payload.userId, payload.currentUserId]),
       },
     });
-    console.log('hasConversation', hasConversation);
     if (hasConversation) {
       return {
         code: 0,
