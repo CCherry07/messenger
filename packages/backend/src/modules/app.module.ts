@@ -10,6 +10,7 @@ import { UserModule } from './user/user.module';
 import { MessageModule } from './message/message.module';
 import { ConversationModule } from './conversation/conversation.module';
 import { AuthModule } from '../auth/auth.module';
+import { UploadModule } from './upload/upload.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { AuthModule } from '../auth/auth.module';
     MessageModule,
     ConversationModule,
     AuthModule,
+    UploadModule,
   ],
   controllers: [AppController],
   providers: [AppService],

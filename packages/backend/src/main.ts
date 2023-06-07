@@ -1,3 +1,4 @@
+import { resolve } from 'path';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './modules/app.module';
 import { __DEV__ } from 'content';
@@ -15,6 +16,9 @@ async function bootstrap() {
   app.useGlobalGuards(new JwtAuthGuard());
   app.useGlobalFilters(new FormatError());
   app.enableCors();
+  app.useStaticAssets(resolve(process.cwd(), './upload'), {
+    prefix: '/assets',
+  });
   // docs
   const options = new DocumentBuilder()
     .setTitle('标题')
