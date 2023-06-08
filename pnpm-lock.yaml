@@ -49,6 +49,7 @@ importers:
       bcrypt: ^5.1.0
       compressing: ^1.9.0
       cross-env: ^7.0.3
+      dotenv: ^16.1.3
       eslint: ^8.41.0
       eslint-config-prettier: ^8.8.0
       eslint-plugin-prettier: ^4.2.1
@@ -62,6 +63,7 @@ importers:
       passport-local: ^1.0.0
       pnpm: ^8.5.1
       prettier: ^2.8.8
+      pusher: ^5.1.3
       reflect-metadata: ^0.1.13
       rxjs: ^7.8.1
       source-map-support: ^0.5.21
@@ -87,11 +89,13 @@ importers:
       bcrypt: 5.1.0
       compressing: 1.9.0
       cross-env: 7.0.3
+      dotenv: 16.1.3
       express-session: 1.17.3
       multer: 1.4.5-lts.1
       mysql2: 3.3.2
       passport: 0.6.0
       passport-local: 1.0.0
+      pusher: 5.1.3
       reflect-metadata: 0.1.13
       rxjs: 7.8.1
       svg-captcha: 1.4.0
@@ -137,6 +141,7 @@ importers:
       '@tauri-apps/api': ^1.3.0
       '@tauri-apps/cli': ^1.3.1
       '@types/bcrypt': ^5.0.0
+      '@types/lodash-es': ^4.17.7
       '@types/node': 20.2.3
       '@types/nprogress': ^0.2.0
       '@types/react': 18.2.7
@@ -151,6 +156,7 @@ importers:
       eslint: 8.41.0
       eslint-config-next: 13.4.3
       i18next: ^22.5.0
+      lodash-es: ^4.17.21
       next: 13.4.3
       next-auth: ^4.22.1
       next-cloudinary: ^4.12.0
@@ -158,6 +164,8 @@ importers:
       next-superjson-plugin: ^0.5.8
       nprogress: ^0.2.0
       postcss: 8.4.23
+      pusher: ^5.1.3
+      pusher-js: ^8.0.2
       react: 18.2.0
       react-dom: 18.2.0
       react-hook-form: ^7.44.3
@@ -165,6 +173,7 @@ importers:
       react-i18next: ^12.3.1
       react-icons: ^4.9.0
       react-select: ^5.7.3
+      react-spinners: ^0.13.8
       shared: workspace:1.0.0
       tailwindcss: 3.3.2
       typescript: 5.0.4
@@ -188,6 +197,7 @@ importers:
       eslint: 8.41.0
       eslint-config-next: 13.4.3_opaykosi7ysrbskpnffskmbrki
       i18next: 22.5.0
+      lodash-es: 4.17.21
       next: 13.4.3_biqbaboplfbrettd7655fr4n2y
       next-auth: 4.22.1_o6dt4yn4syzkhlixdxt4y57rzi
       next-cloudinary: 4.12.0_next@13.4.3+react@18.2.0
@@ -195,6 +205,8 @@ importers:
       next-superjson-plugin: 0.5.8_next@13.4.3
       nprogress: 0.2.0
       postcss: 8.4.23
+      pusher: 5.1.3
+      pusher-js: 8.0.2
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       react-hook-form: 7.44.3_react@18.2.0
@@ -202,12 +214,14 @@ importers:
       react-i18next: 12.3.1_dje3x67x7taogjmwoynufb4r2i
       react-icons: 4.9.0_react@18.2.0
       react-select: 5.7.3_psemcf34ovg2dno52nagbe3daa
+      react-spinners: 0.13.8_biqbaboplfbrettd7655fr4n2y
       shared: link:../shared
       tailwindcss: 3.3.2
       typescript: 5.0.4
     devDependencies:
       '@tauri-apps/cli': 1.3.1
       '@types/bcrypt': 5.0.0
+      '@types/lodash-es': 4.17.7
 
   packages/shared:
     specifiers:
@@ -1976,6 +1990,14 @@ packages:
     resolution: {integrity: sha512-LG4opVs2ANWZ1TJoKc937iMmNstM/d0ae1vNbnBvBhqCSezgVUOzcLCqbI5elV8Vy6WKwKjaqR+zO9VKirBBCA==}
     dev: true
 
+  /@types/express-serve-static-core/4.17.28:
+    resolution: {integrity: sha512-P1BJAEAW3E2DJUlkgq4tOL3RyMunoWXqbSCygWo5ZIWTjUgN1YnaXWW4VWl/oc8vs/XoYibEGBKP0uZyF4AHig==}
+    dependencies:
+      '@types/node': 20.2.3
+      '@types/qs': 6.9.7
+      '@types/range-parser': 1.2.4
+    dev: false
+
   /@types/express-serve-static-core/4.17.35:
     resolution: {integrity: sha512-wALWQwrgiB2AWTT91CB62b6Yt0sNHpznUXeZEcnPU3DRdlDIz74x8Qg1UUYKSVFi+va5vKOLYRBI1bRKiLLKIg==}
     dependencies:
@@ -2054,6 +2076,16 @@ packages:
       '@types/node': 20.2.3
     dev: true
 
+  /@types/lodash-es/4.17.7:
+    resolution: {integrity: sha512-z0ptr6UI10VlU6l5MYhGwS4mC8DZyYer2mCoyysZtSF7p26zOX8UpbrV0YpNYLGS8K4PUFIyEr62IMFFjveSiQ==}
+    dependencies:
+      '@types/lodash': 4.14.195
+    dev: true
+
+  /@types/lodash/4.14.195:
+    resolution: {integrity: sha512-Hwx9EUgdwf2GLarOjQp5ZH8ZmblzcbTBC2wtQWNKARBSxM9ezRIAUpeDTgoQRAFB0+8CNWXVA9+MaSOzOF3nPg==}
+    dev: true
+
   /@types/mime/1.3.2:
     resolution: {integrity: sha512-YATxVxgRqNH6nHEIsvg6k2Boc1JHI9ZbH5iWFFv/MTkchz3b1ieGDa5T0a9RznNdI0KhVbdbWSN+KWWrQZRxTw==}
 
@@ -2068,6 +2100,17 @@ packages:
     resolution: {integrity: sha512-/SNsDidUFCvqqcWDwxv2feww/yqhNeTRL5CVoL3jU4Goc4kKEL10T7Eye65ZqPNi4HRx8sAEX59pV1aEH7drNA==}
     dependencies:
       '@types/express': 4.17.17
+    dev: false
+
+  /@types/node-fetch/2.6.4:
+    resolution: {integrity: sha512-1ZX9fcN4Rvkvgv4E6PAY5WXUFWFcRWxZa3EW83UjycOB9ljJCedb2CupIP4RZMEwF/M3eTcCihbBRgwtGbg5Rg==}
+    dependencies:
+      '@types/node': 20.2.3
+      form-data: 3.0.1
+    dev: false
+
+  /@types/node/14.18.48:
+    resolution: {integrity: sha512-iL0PIMwejpmuVHgfibHpfDwOdsbmB50wr21X71VnF5d7SsBF7WK+ZvP/SCcFm7Iwb9iiYSap9rlrdhToNAWdxg==}
     dev: false
 
   /@types/node/18.15.11:
@@ -2513,6 +2556,13 @@ packages:
 
   /abbrev/1.1.1:
     resolution: {integrity: sha512-nne9/IiQ/hzIhY6pdDnbBtz7DjPTKrY00P/zvPSm5pOFkl6xuGrGnXn/VtTNNfNtAfZ9/1RtehkszU9qcTii0Q==}
+    dev: false
+
+  /abort-controller/3.0.0:
+    resolution: {integrity: sha512-h8lQ8tacZYnR3vNQTgibj+tODHI5/+l06Au2Pcriv/Gmet0eaj4TwWH41sO9wnHDiQsEj19q0drzdWdeAHtweg==}
+    engines: {node: '>=6.5'}
+    dependencies:
+      event-target-shim: 5.0.1
     dev: false
 
   /accepts/1.3.8:
@@ -4310,6 +4360,11 @@ packages:
     resolution: {integrity: sha512-aIL5Fx7mawVa300al2BnEE4iNvo1qETxLrPI/o05L7z6go7fCw1J6EQmbK4FmJ2AS7kgVF/KEZWufBfdClMcPg==}
     engines: {node: '>= 0.6'}
 
+  /event-target-shim/5.0.1:
+    resolution: {integrity: sha512-i/2XbnSz/uxRCU6+NdVJgKWDTM427+MqYbkQzD321DuCQJUqOuJKIA0IM2+W2xtYHdKOmZ4dR6fExsd4SXL+WQ==}
+    engines: {node: '>=6'}
+    dev: false
+
   /events/3.3.0:
     resolution: {integrity: sha512-mQw+2fkQbALzQ7V0MY0IqdnXNOeTtP4r0lN9z7AAawCXgqea7bDii20AYrIBrFd/Hx0M2Ocz6S111CaFkUcb0Q==}
     engines: {node: '>=0.8.x'}
@@ -4608,6 +4663,15 @@ packages:
       typescript: 4.9.5
       webpack: 5.82.1
     dev: true
+
+  /form-data/3.0.1:
+    resolution: {integrity: sha512-RHkBKtLWUVwd7SqRIvCZMEvAMoGUp0XU+seQiZejj0COz3RI3hWP4sCv3gZWWLjJTd7rGwcsF5eKZGii0r/hbg==}
+    engines: {node: '>= 6'}
+    dependencies:
+      asynckit: 0.4.0
+      combined-stream: 1.0.8
+      mime-types: 2.1.35
+    dev: false
 
   /form-data/4.0.0:
     resolution: {integrity: sha512-ETEklSGi5t0QMZuiXoA/Q6vcnxcLQP5vdugSpuAyi6SVGi2clPPp+xgEhuMaHC+zGgn31Kd235W35f7Hykkaww==}
@@ -5238,6 +5302,11 @@ packages:
 
   /is-arrayish/0.2.1:
     resolution: {integrity: sha512-zz06S8t0ozoDXMG+ube26zeCTNXcKIPJZJi8hBrF4idCLms4CG9QtK7qBl1boi5ODzFpjswb5JPmHCbMpjaYzg==}
+
+  /is-base64/1.1.0:
+    resolution: {integrity: sha512-Nlhg7Z2dVC4/PTvIFkgVVNvPHSO2eR/Yd0XzhGiXCXEvWnptXlXa/clQ8aePPiMuxEGcWfzWbGw2Fe3d+Y3v1g==}
+    hasBin: true
+    dev: false
 
   /is-bigint/1.0.4:
     resolution: {integrity: sha512-zB9CruMamjym81i2JZ3UMn54PKGsQzsJeo6xvN3HJJ4CAsQNB6iRutp2To77OfCNuoxspsIhzaPoO1zyCEhFOg==}
@@ -6145,6 +6214,10 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       p-locate: 5.0.0
+
+  /lodash-es/4.17.21:
+    resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
+    dev: false
 
   /lodash.camelcase/4.3.0:
     resolution: {integrity: sha512-TwuEnCnxbc3rAvhf/LbG7tJUDzhqXyFnv3dtzLOPgCG/hODL7WFnsbwktkD7yUV0RrreP/l1PALq/YSg6VvjlA==}
@@ -7301,6 +7374,28 @@ packages:
     resolution: {integrity: sha512-6Yg0ekpKICSjPswYOuC5sku/TSWaRYlA0qsXqJgM/d/4pLPHPuTxK7Nbf7jFKzAeedUhR8C7K9Uv63FBsSo8xQ==}
     dev: true
 
+  /pusher-js/8.0.2:
+    resolution: {integrity: sha512-LLWUHLxraa2ro3iKKOg1cLcg7Qoz9NZyxQ+uwTGDEDNtLqsaD5pUK3zbWtMHPmav5d5E0bqpjuSc3y9ycqMtjA==}
+    dependencies:
+      '@types/express-serve-static-core': 4.17.28
+      '@types/node': 14.18.48
+      tweetnacl: 1.0.3
+    dev: false
+
+  /pusher/5.1.3:
+    resolution: {integrity: sha512-Bmy5guFxQsbYSFLF3CM7GA2qE1zDJYn51PnNme9QlSjGguvkqUg4nj31PbgiLVDFK2sJvxPfx4JrB2HLgM3kaw==}
+    engines: {node: '>= 4.0.0'}
+    dependencies:
+      '@types/node-fetch': 2.6.4
+      abort-controller: 3.0.0
+      is-base64: 1.1.0
+      node-fetch: 2.6.11
+      tweetnacl: 1.0.3
+      tweetnacl-util: 0.15.1
+    transitivePeerDependencies:
+      - encoding
+    dev: false
+
   /q/1.5.1:
     resolution: {integrity: sha512-kV/CThkXo6xyFEZUugw/+pIOywXcDbFYgSct5cT3gqlbkBE1SJdwy6UQoZvodiWF/ckQLZyDE/Bu1M6gVu5lVw==}
     engines: {node: '>=0.6.0', teleport: '>=0.2.0'}
@@ -7447,6 +7542,16 @@ packages:
       use-isomorphic-layout-effect: 1.1.2_bfoz4c5kom3f237nig75ykjhhy
     transitivePeerDependencies:
       - '@types/react'
+    dev: false
+
+  /react-spinners/0.13.8_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-3e+k56lUkPj0vb5NDXPVFAOkPC//XyhKPJjvcGjyMNPWsBKpplfeyialP74G7H7+It7KzhtET+MvGqbKgAqpZA==}
+    peerDependencies:
+      react: ^16.0.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.0.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
     dev: false
 
   /react-transition-group/4.4.5_biqbaboplfbrettd7655fr4n2y:
@@ -8545,6 +8650,14 @@ packages:
       typescript: 5.0.4
     dev: false
 
+  /tweetnacl-util/0.15.1:
+    resolution: {integrity: sha512-RKJBIj8lySrShN4w6i/BonWp2Z/uxwC3h4y7xsRrpP59ZboCd0GpEVsOnMDYLMmKBpYhb5TgHzZXy7wTfYFBRw==}
+    dev: false
+
+  /tweetnacl/1.0.3:
+    resolution: {integrity: sha512-6rt+RN7aOi1nGMyC4Xa5DdYiukl2UWCbcJft7YhxReBGQD7OAM8Pbxw6YMo4r2diNEA8FEmu32YOn9rhaiE5yw==}
+    dev: false
+
   /type-check/0.4.0:
     resolution: {integrity: sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==}
     engines: {node: '>= 0.8.0'}
@@ -8662,7 +8775,7 @@ packages:
       cli-highlight: 2.1.11
       date-fns: 2.30.0
       debug: 4.3.4
-      dotenv: 16.0.3
+      dotenv: 16.1.3
       glob: 8.1.0
       mkdirp: 2.1.6
       mysql2: 3.3.2
