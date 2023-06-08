@@ -4,7 +4,7 @@ import { User } from "shared/types";
 import { useState } from "react";
 import useRoutes from "@/app/hooks/useRoutes";
 import DesktopItem from "./DesktopItem";
-import Avater from "../Avatar";
+import Avatar from "../Avatar";
 import SettingsModal from "./SettingsModal";
 interface DesktopSidebarProps {
   user: User;
@@ -78,7 +78,7 @@ const DesktopSidebar = ({ user }: DesktopSidebarProps) => {
             transition
           "
           >
-            <Avater user={user} />
+            <Avatar user={user} />
           </div>
         </nav>
       </div>

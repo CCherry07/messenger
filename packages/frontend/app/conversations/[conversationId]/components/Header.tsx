@@ -1,11 +1,12 @@
 "use client";
 
-import Avater from "@/app/components/Avatar";
+import Avatar from "@/app/components/Avatar";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { HiChevronLeft, HiEllipsisHorizontal } from "react-icons/hi2";
 import { EntitiesTypes } from "shared/types";
 import ProfileDrawer from "./ProfileDrawer";
+import AvatarGroup from "@/app/components/AvatarGroup";
 interface HeaderProps {
   conversation: EntitiesTypes["ConversationEntity"] & {
     users: EntitiesTypes["UserEntity"][];
@@ -54,9 +55,11 @@ const Header = ({ conversation }: HeaderProps) => {
           >
             <HiChevronLeft size={32} />
           </Link>
-
-          <Avater user={conversation.users[0]} />
-
+          {conversation.isGroup ? (
+            <AvatarGroup users={conversation.users} />
+          ) : (
+            <Avatar user={conversation.users[0]} />
+          )}
           <div className="flex flex-col">
             <div>{conversation.name || conversation.users?.[0]?.name}</div>
             <div className="text-sm font-light text-neutral-500">

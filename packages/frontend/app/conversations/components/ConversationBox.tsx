@@ -6,9 +6,9 @@ import clsx from "clsx";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo } from "react";
-import Avater from "@/app/components/Avatar";
+import Avatar from "@/app/components/Avatar";
 import useRelativeTimeText from "@/app/hooks/useRelativeTimeText";
-import AvaterGroup from "@/app/components/AvaterGroup";
+import AvatarGroup from "@/app/components/AvatarGroup";
 interface ConversationBoxProps {
   conversation: EntitiesTypes["ConversationEntity"];
   selected: boolean;
@@ -64,9 +64,9 @@ const ConversationBox = ({ conversation, selected }: ConversationBoxProps) => {
       )}
     >
       {conversation.isGroup ? (
-        <AvaterGroup users={conversation.users} />
+        <AvatarGroup users={conversation.users} />
       ) : (
-        <Avater user={users[0]} />
+        <Avatar user={users[0]} />
       )}
       <div className="min-w-0 flex-1">
         <div className="focus:outline-none">

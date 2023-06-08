@@ -1,6 +1,6 @@
 "use client";
 
-import Avater from "@/app/components/Avatar";
+import Avatar from "@/app/components/Avatar";
 import clsx from "clsx";
 import { useSession } from "next-auth/react";
 import { EntitiesTypes } from "shared/types";
@@ -32,7 +32,7 @@ const MessageBox = ({ islast, message }: MessageBoxProps) => {
   return (
     <div className={container}>
       <div className={avatar}>
-        <Avater user={message.sender} />
+        <Avatar user={message.sender} />
       </div>
       <div className={body}>
         <div className="flex items-center gap-1">

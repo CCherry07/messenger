@@ -1,11 +1,11 @@
 import Image from "next/image";
 import { EntitiesTypes } from "shared/types";
 
-interface AvaterGroupProps {
+interface AvatarGroupProps {
   users: EntitiesTypes["UserEntity"][];
 }
 
-const AvaterGroup = ({ users }: AvaterGroupProps) => {
+const AvatarGroup = ({ users }: AvatarGroupProps) => {
   const slice = users.slice(0, 3);
   const rest = users.length - 3;
   const positionMap: Record<number, string> = {
@@ -41,4 +41,4 @@ const AvaterGroup = ({ users }: AvaterGroupProps) => {
   );
 };
 
-export default AvaterGroup;
+export default AvatarGroup;

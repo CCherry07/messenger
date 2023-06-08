@@ -1,9 +1,9 @@
 import { User } from "shared/types";
 import Image from "next/image";
-interface AvaterProps {
+interface AvatarProps {
   user: User;
 }
-const Avater = ({ user }: AvaterProps) => {
+const Avatar = ({ user }: AvatarProps) => {
   return (
     <div className="relative">
       <div
@@ -20,7 +20,6 @@ const Avater = ({ user }: AvaterProps) => {
       >
         <Image
           fill
-          sizes="32px"
           alt={user?.name}
           src={
             user?.image ||
@@ -47,4 +46,4 @@ const Avater = ({ user }: AvaterProps) => {
   );
 };
 
-export default Avater;
+export default Avatar;

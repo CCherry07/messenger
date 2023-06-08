@@ -5,6 +5,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { IoClose, IoTrash } from "react-icons/io5";
 import Avatar from "@/app/components/Avatar";
 import ConfirmModal from "./ConfirmModal";
+import AvatarGroup from "@/app/components/AvatarGroup";
 interface ProfileDrawerProps {
   conversation: EntitiesTypes["ConversationEntity"] & {
     users: EntitiesTypes["UserEntity"][];
@@ -94,7 +95,11 @@ const ProfileDrawer = ({
                         <div className="relative mt-6 flex-1 px4 sm:px-6">
                           <div className="flex flex-col items-center">
                             <div className="mb-2">
-                              <Avatar user={conversation.users[0]} />
+                              {conversation.isGroup ? (
+                                <AvatarGroup users={conversation.users} />
+                              ) : (
+                                <Avatar user={conversation.users[0]} />
+                              )}
                             </div>
                             <div>{title}</div>
                             <div
@@ -157,6 +162,39 @@ const ProfileDrawer = ({
                               sm:space-y-6
                               "
                               >
+                                {conversation.isGroup && (
+                                  <div>
+                                    <dt
+                                      className="
+                                    text-sm
+                                    font-medium
+                                    text-gray-500
+                                    sm:w-40
+                                    sm:flex-shrink-0
+                                    "
+                                    >
+                                      Emails
+                                    </dt>
+                                    <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 flex flex-col">
+                                      {conversation.users.map((user) => (
+                                        <div
+                                          key={user.email}
+                                          className="flex items-center gap-4"
+                                        >
+                                          <Avatar user={user} />
+                                          <a
+                                            type="email"
+                                            target="_blank"
+                                            href={`mailto:${user.email}`}
+                                          >
+                                            {" "}
+                                            {user.email}{" "}
+                                          </a>
+                                        </div>
+                                      ))}
+                                    </dd>
+                                  </div>
+                                )}
                                 {!conversation.isGroup && (
                                   <div>
                                     <dt
