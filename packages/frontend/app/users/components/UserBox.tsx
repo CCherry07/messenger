@@ -1,6 +1,7 @@
 "use client";
 import { getSesssionConversation } from "@/apis/conversations";
 import Avatar from "@/app/components/Avatar";
+import LoadingModal from "@/app/components/LoadingModal";
 import { useMutation } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -12,13 +13,13 @@ const UserBox = ({ item }: UserBoxProps) => {
   const { data: session } = useSession();
   const router = useRouter();
 
-  const { mutate } = useMutation({
+  const { mutate, isLoading } = useMutation({
     mutationKey: ["conversation", item.id],
     mutationFn: async () =>
       await getSesssionConversation(
         {
+          isGroup: false,
           userId: item.id,
-          currentUserId: session!.user.id,
         },
         session!.user.accessToken
       ),
@@ -29,6 +30,7 @@ const UserBox = ({ item }: UserBoxProps) => {
 
   return (
     <>
+      <LoadingModal loading={isLoading} />
       <div
         onClick={() => mutate()}
         className="

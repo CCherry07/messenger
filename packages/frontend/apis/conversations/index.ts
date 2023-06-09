@@ -1,10 +1,10 @@
 import { client } from "@/utils/client";
 
 interface GetConversationParams {
-  userId?: GetConversationParams["isGroup"] extends true ? number : never;
-  name?: GetConversationParams["isGroup"] extends true ? string : never;
+  userId?: number;
+  name?: string;
   isGroup?: boolean;
-  members?: GetConversationParams["isGroup"] extends true ? number[] : never;
+  members?: number[];
 }
 
 export const getSesssionConversation = async (

@@ -1,7 +1,7 @@
 import { User } from "shared/types";
 import Image from "next/image";
 interface AvatarProps {
-  user: User;
+  user: Omit<User, "accessToken">;
 }
 const Avatar = ({ user }: AvatarProps) => {
   return (

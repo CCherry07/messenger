@@ -6,6 +6,8 @@ import { useSession } from "next-auth/react";
 import { EntitiesTypes } from "shared/types";
 import useRelativeTimeText from "@/app/hooks/useRelativeTimeText";
 import Image from "next/image";
+import { useState } from "react";
+import ImageModal from "./ImageModal";
 interface MessageBoxProps {
   islast: boolean;
   message: EntitiesTypes["MessageEntity"];
@@ -13,6 +15,8 @@ interface MessageBoxProps {
 
 const MessageBox = ({ islast, message }: MessageBoxProps) => {
   const session = useSession();
+  const [imageModalOpen, setImageModalOpen] = useState(false);
+
   const isOwnMessage = message.senderId === Number(session.data?.user.id);
   const seenlist = (message.seen || [])
     .filter((seen) => seen.id !== Number(session.data?.user.id))
@@ -40,10 +44,16 @@ const MessageBox = ({ islast, message }: MessageBoxProps) => {
           <div className="text-xs text-gray-400">{timeText}</div>
         </div>
         <div className={messageText}>
+          <ImageModal
+            isOpen={imageModalOpen}
+            src={message.image}
+            onClose={() => setImageModalOpen(false)}
+          />
           {message.type === "text" ? (
             message.body
           ) : message.type === "image" ? (
             <Image
+              onClick={() => setImageModalOpen(true)}
               alt="Image"
               height={288}
               width={288}
