@@ -8,6 +8,7 @@ import { ServiceResponse } from 'src/exports';
 import { Message } from '../message/entities/message.entity';
 import { Conversations_Users } from '../entities/conversations_users.entity';
 import { Messages_Seen } from '../entities/messages_seen';
+import { pusherServer } from 'src/common/pusher';
 
 @Injectable()
 export class ConversationService {
@@ -167,13 +168,17 @@ export class ConversationService {
     };
   }
 
-  async updateSeen(id: number) {
+  async updateSeen(id: number, info: any) {
     const conversation = await this.conversation.findOne({
       where: {
         id,
       },
-      relations: ['users', 'messages'],
+      relations: {
+        messages: true,
+        users: true,
+      },
     });
+
     if (!conversation) {
       return {
         code: 404,
@@ -194,6 +199,21 @@ export class ConversationService {
       });
     });
     await this.Messages_Seen.save(seen);
+    pusherServer.trigger(`sender-${info.id}`, 'conversation:update', {
+      conversationId: conversation.id,
+      data: conversation,
+    });
+    await pusherServer.trigger(
+      `conversation-${conversation.id}`,
+      'message:update',
+      {
+        message: {
+          ...lastMessage,
+          seen: conversation.users,
+        },
+        conversationId: conversation.id,
+      },
+    );
     return {
       code: 0,
       data: conversation,

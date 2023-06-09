@@ -5,7 +5,8 @@ import { Message } from './entities/message.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Conversation } from '../conversation/entities/conversation.entity';
-import { Messages_Seen } from '../entities/messages_seen';
+import { pusherServer } from 'src/common/pusher';
+
 interface userInfo {
   id: number;
   name: string;
@@ -43,7 +44,27 @@ export class MessageService {
     const saveMessage = await this.messageRepository.save(newMessage);
     conversation.lastMessageAt = new Date();
     conversation.messages.push(saveMessage);
+
+    // trigger pusher event to all users in the conversation
     await this.conversationRepository.save(conversation);
+    await pusherServer.trigger(
+      `conversation-${conversationId}`,
+      'message:new',
+      {
+        message: saveMessage,
+        conversationId,
+      },
+    );
+
+    conversation.users.forEach((user) => {
+      if (user.id !== userInfo.id) {
+        pusherServer.trigger(`user-${user.id}`, 'message:new', {
+          message: saveMessage,
+          conversationId,
+        });
+      }
+    });
+
     return {
       code: 0,
       data: saveMessage,

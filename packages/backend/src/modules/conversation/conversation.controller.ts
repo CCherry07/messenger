@@ -29,8 +29,8 @@ export class ConversationController {
   }
 
   @Post(':id/seen')
-  updateSeen(@Param('id') id: string) {
-    return this.conversationService.updateSeen(+id);
+  updateSeen(@Param('id') id: string, @GetInfoByToken() info: any) {
+    return this.conversationService.updateSeen(+id, info);
   }
 
   @Delete(':id')
