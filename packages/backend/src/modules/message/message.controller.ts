@@ -11,7 +11,8 @@ import { MessageService } from './message.service';
 import { CreateMessageDto } from './dto/create-message.dto';
 import { UpdateMessageDto } from './dto/update-message.dto';
 import { GetInfoByToken } from 'src/get-info-by-token/get-info-by-token.decorator';
-
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const translate = require('@asmagin/google-translate-api');
 @Controller('message')
 export class MessageController {
   constructor(private readonly messageService: MessageService) {}
@@ -21,6 +22,17 @@ export class MessageController {
     @GetInfoByToken() userInfo,
     @Body() createMessageDto: CreateMessageDto,
   ) {
+    console.log(translate);
+    translate('I speak English', { to: 'zh-CN' })
+      .then((res) => {
+        console.log(res.text);
+        //=> I speak English
+        console.log(res.from.language.iso);
+        //=> nl
+      })
+      .catch((err) => {
+        console.error(err);
+      });
     return this.messageService.create(createMessageDto, userInfo);
   }
 

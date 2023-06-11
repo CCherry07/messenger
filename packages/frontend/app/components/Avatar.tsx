@@ -20,7 +20,7 @@ const Avatar = ({ user }: AvatarProps) => {
       >
         <Image
           fill
-          alt={user?.name}
+          alt={user?.name ?? "avatar"}
           src={
             user?.image ||
             "https://avatars.githubusercontent.com/u/79909910?v=4"

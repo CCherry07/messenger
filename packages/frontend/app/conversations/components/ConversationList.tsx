@@ -5,9 +5,10 @@ import clsx from "clsx";
 import { EntitiesTypes } from "shared/types";
 import { MdOutlineGroupAdd } from "react-icons/md";
 import ConversationBox from "./ConversationBox";
-import { useMutation } from "@tanstack/react-query";
-import { useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import GroupChatModal from "./GroupChatModal";
+import { pusherClient } from "@/app/libs/pusher";
+import { find } from "lodash-es";
 interface ConversationListProps {
   conversations: EntitiesTypes["ConversationEntity"][];
   users: EntitiesTypes["UserEntity"][];
@@ -15,15 +16,63 @@ interface ConversationListProps {
     conversations: EntitiesTypes["ConversationEntity"][]
   ) => void;
 }
-
+interface PusherConversation {
+  conversation?: EntitiesTypes["ConversationEntity"];
+  conversationId: string;
+}
 const ConversationList = ({ conversations, users }: ConversationListProps) => {
-  // const router = useRouter();
+  const [items, setItems] = useState(conversations);
   const { conversationId, isOpen } = useConversation();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  // const { mutate, isLoading } = useMutation({
-  //   mutationKey: ["createConversation"],
-  //   mutationFn: () => { },
-  // })
+  const pusherKey = useMemo(
+    () => `conversation-${conversationId}`,
+    [conversationId]
+  );
+  const newConversationHandler = useCallback(
+    ({ conversation, conversationId }: PusherConversation) => {
+      setItems((prev) => {
+        if (find(prev, { id: conversationId })) {
+          return prev;
+        }
+        return [conversation!, ...prev];
+      });
+    },
+    []
+  );
+  const updateConversationHandler = useCallback(
+    ({ conversation, conversationId }: PusherConversation) => {
+      setItems((prev) => {
+        const index = prev.findIndex((item) => item.id === +conversationId);
+        if (!conversation && index !== -1) {
+          return prev.filter((item) => item.id !== +conversationId);
+        }
+        if (index === -1) {
+          return prev;
+        }
+        prev[index] = conversation!;
+        return [...prev];
+      });
+    },
+    []
+  );
+  useEffect(() => {
+    pusherClient.subscribe(pusherKey);
+    pusherClient.bind("conversation:new", newConversationHandler);
+    pusherClient.bind("conversation:updated", updateConversationHandler);
+    pusherClient.bind("conversation:deleted", updateConversationHandler);
+    return () => {
+      pusherClient.unsubscribe(pusherKey);
+      pusherClient.unbind("conversation:new", newConversationHandler);
+      pusherClient.unbind("conversation:updated", updateConversationHandler);
+      pusherClient.unbind("conversation:deleted", updateConversationHandler);
+    };
+  }, [
+    conversationId,
+    conversations,
+    newConversationHandler,
+    pusherKey,
+    updateConversationHandler,
+  ]);
   return (
     <>
       <GroupChatModal
@@ -73,7 +122,7 @@ const ConversationList = ({ conversations, users }: ConversationListProps) => {
             </div>
           </div>
 
-          {conversations?.map((conversation) => (
+          {items?.map((conversation) => (
             <ConversationBox
               key={conversation.id}
               conversation={conversation}

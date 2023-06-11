@@ -217,7 +217,7 @@ const ProfileDrawer = ({
                                       sm:col-span-2
                                     "
                                     >
-                                      {conversation.users[0].email}
+                                      {conversation.users[0]?.email}
                                     </dd>
                                   </div>
                                 )}

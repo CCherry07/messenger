@@ -56,6 +56,15 @@ export class MessageService {
       },
     );
 
+    await pusherServer.trigger(
+      `conversation-${conversationId}`,
+      'conversation:updated',
+      {
+        conversationId,
+        conversation,
+      },
+    );
+
     conversation.users.forEach((user) => {
       if (user.id !== userInfo.id) {
         pusherServer.trigger(`user-${user.id}`, 'message:new', {

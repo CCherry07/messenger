@@ -68,6 +68,7 @@ export class ConversationService {
         name,
         isGroup,
         userIds: [...members, currentUserId],
+        messages: [],
       });
       const res = await this.conversation.save(conversation);
       const newCU = [...members, currentUserId].map((member) => {
@@ -77,6 +78,21 @@ export class ConversationService {
         });
       });
       await this.cu.save(newCU);
+      // 获取 conversation 的 users
+      const users = await this.cu.find({
+        where: {
+          conversationId: res.id,
+        },
+        relations: ['users'],
+      });
+      // 获取 conversation 的 messages
+      pusherServer.trigger(`conversation-${res.id}`, 'conversation:new', {
+        conversationId: res.id,
+        conversation: {
+          ...res,
+          users: users.map((cu) => cu.users),
+        },
+      });
       return {
         code: 0,
         data: await this.conversation.save(conversation),
@@ -102,6 +118,7 @@ export class ConversationService {
     const newConversation = new Conversation({
       isGroup: false,
       userIds: [userId, currentUserId],
+      messages: [],
     });
     const res = await this.conversation.save(newConversation);
     const newCU = new Conversations_Users({
@@ -109,6 +126,10 @@ export class ConversationService {
       conversationId: res.id,
     });
     await this.cu.save(newCU);
+    pusherServer.trigger(`conversation-${res.id}`, 'conversation:new', {
+      conversationId: res.id,
+      conversation: res,
+    });
     return {
       code: 0,
       data: res,
@@ -199,9 +220,9 @@ export class ConversationService {
       });
     });
     await this.Messages_Seen.save(seen);
-    pusherServer.trigger(`sender-${info.id}`, 'conversation:update', {
+    pusherServer.trigger(`conversation-${info.id}`, 'conversation:updated', {
       conversationId: conversation.id,
-      data: conversation,
+      conversation,
     });
     await pusherServer.trigger(
       `conversation-${conversation.id}`,
@@ -243,8 +264,11 @@ export class ConversationService {
       messageId: In(conversation.messages.map((message) => message.id)),
     });
     const messageIds = conversation.messages.map((message) => message.id);
-    await this.message.delete(messageIds);
+    messageIds.length && (await this.message.delete(messageIds));
     await this.conversation.remove(conversation);
+    await pusherServer.trigger(`conversation-${id}`, 'conversation:deleted', {
+      conversationId: id,
+    });
     return {
       code: 0,
       message: 'conversation deleted',
