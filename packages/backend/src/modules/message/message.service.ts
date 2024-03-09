@@ -6,6 +6,8 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Conversation } from '../conversation/entities/conversation.entity';
 import { pusherServer } from 'src/common/pusher';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const translate = require('@asmagin/google-translate-api');
 
 interface userInfo {
   id: number;
@@ -102,6 +104,12 @@ export class MessageService {
     return {
       code: 0,
       data: messages,
+    };
+  }
+
+  async getTranslateText(content: string) {
+    return {
+      data: await translate(content, { to: 'zh-CN' }),
     };
   }
 

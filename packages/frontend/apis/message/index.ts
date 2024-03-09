@@ -23,3 +23,13 @@ export const sendMessage = async (
     method: "POST",
   });
 };
+
+export const getTranslateText = async (content: string, token: string) => {
+  return await client("message/translate", {
+    method: "POST",
+    token,
+    data: {
+      content,
+    },
+  });
+};

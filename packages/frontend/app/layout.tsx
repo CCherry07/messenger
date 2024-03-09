@@ -1,4 +1,4 @@
-import "./styles/globals.css";
+import "./globals.css";
 import AuthContext from "./context/AuthContext";
 // import ActiveStatus from './components/ActiveStatus'
 import ToasterContext from "./context/ToasterContext";
