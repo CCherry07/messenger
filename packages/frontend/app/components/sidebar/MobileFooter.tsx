@@ -27,7 +27,7 @@ const MobileFooter = () => {
     "
     >
       {routes.map((route) => (
-        <MobileItem {...route} key={route.name} label={route.name} />
+        <MobileItem key={route.name} {...route} label={route.name} />
       ))}
     </div>
   );
