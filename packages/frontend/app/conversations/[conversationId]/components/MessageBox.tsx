@@ -103,7 +103,7 @@ const MessageBox = ({ islast, message }: MessageBoxProps) => {
                 "Started a conversation"
               )}
               {translateText ? (
-                <div className="text-blue">{`翻译:${translateText}`}</div>
+                <div className="text-blue">{translateText}</div>
               ) : null}
             </div>
             {islast && isOwnMessage && seenlist.length > 0 && (

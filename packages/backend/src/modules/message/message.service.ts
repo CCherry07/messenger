@@ -8,7 +8,13 @@ import { Conversation } from '../conversation/entities/conversation.entity';
 import { pusherServer } from 'src/common/pusher';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const translate = require('@asmagin/google-translate-api');
+function containsChinese(text) {
+  return /[\u4e00-\u9fa5]/.test(text);
+}
 
+function containsEnglish(text) {
+  return /[a-zA-Z]/.test(text);
+}
 interface userInfo {
   id: number;
   name: string;
@@ -108,8 +114,13 @@ export class MessageService {
   }
 
   async getTranslateText(content: string) {
+    if (containsEnglish(content)) {
+      return {
+        data: await translate(content, { to: 'zh-CN' }),
+      };
+    }
     return {
-      data: await translate(content, { to: 'zh-CN' }),
+      data: await translate(content, { to: 'en' }),
     };
   }
 
