@@ -55,7 +55,7 @@
     "windows": [
       {
         "fullscreen": false,
-        "height": 800,
+        "height": 720,
         "resizable": true,
         "title": "messenger",
         "width": 1024
